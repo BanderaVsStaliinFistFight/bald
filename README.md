@@ -149,10 +149,3 @@ silhouette. The helmet's lenses and grille are recoloured per use:
 
 To use hand-made art for one icon, overwrite its DDS in `gfx/interface/sm_astartes/`
 (keep the filename and size) and remove its entry from `SPRITES` in the script.
-
-## Also in this repository
-
-[`open_inner_circle/`](open_inner_circle/README.md) is a separate mod, **Open Inner
-Circle**. As Germany, you can make any advisor, general or admiral the country's leader,
-or seat them in the Inner Circle. Install that folder on its own. The game doesn't load
-it as part of this mod.
