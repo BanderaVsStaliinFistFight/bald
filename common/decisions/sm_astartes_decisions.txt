@@ -285,10 +285,6 @@ sm_astartes_chapter_category = {
 				subtract_from_variable = { sm_geneseed = 20 }
 			}
 			set_country_flag = sm_chapter_founded
-			set_technology = {
-				sm_chapter_founding = 1
-				popup = no
-			}
 			add_ideas = sm_adeptus_astartes_chapter
 			division_template = {
 				name = "1st Company"

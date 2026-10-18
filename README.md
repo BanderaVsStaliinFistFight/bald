@@ -9,9 +9,8 @@ countries or map changes. Its one vanilla override is the research screen's layo
 runs alongside vanilla and focus-tree mods (see [The tech tab](#the-tech-tab)). The full
 design is in [IDEAS.md](IDEAS.md).
 
-**Status: v0.1.3.** v0.1.2's Astartes tab showed up in-game but was empty. v0.1.3 gives
-the tab's tech grid an explicit size and shows the techs from game start. Not yet
-confirmed in-game.
+**Status: v0.1.5.** Tactical Squads now come from researching Black Carapace, like
+vanilla units come from techs. Not yet confirmed in-game.
 
 ## Install
 
@@ -37,19 +36,26 @@ confirmed in-game.
 3. Research **Mk II power armour** early, so you can build up a stockpile.
 4. After **Ossmodula**, choose a gene-seed lineage: Ultramarines, Blood Angels or
    Imperial Fists.
-5. After **Black Carapace**, **Found the First Chapter** (150 PP, 20 gene-seed, 5k
-   manpower). This unlocks Tactical Squads, raises the special-forces limit and adds a
+5. **Black Carapace** unlocks **Tactical Squads** (the Space Marine battalion) in the
+   division designer. Then **Found the First Chapter** (150 PP, 20 gene-seed, 5k
+   manpower): it raises the special-forces limit, opens the Crusade decisions and adds a
    *1st Company* division template.
 6. While at war, **Recover Progenoids** every 90 days for more gene-seed. Late techs unlock
    the orbital decisions in the **Crusade** category.
 
 The category descriptions show your current gene-seed stockpile.
 
-## What's in v0.1.3
+**Where the units come from:** Neophyte Scouts (support company) with Ossmodula, the
+Apothecarion (support company) with Larraman's Organ, and Tactical Squads with Black
+Carapace. Power armour for them comes from the Mk II–IV techs. To try them straight away,
+open the console (`~`) and enter `research sm_black_carapace` and
+`research sm_mk2_crusade_armour`.
+
+## What's in v0.1.5
 
 | | Content |
 |---|---|
-| Technologies (21 in the tab + 1 granted by decision) | Gene-Seed spine (5) and side organs (5); power armour Mk II–IV; Boltgun and Heavy Bolter; Drop Pods, Strike Cruiser, Battle Barge; Codex Adherent doctrine (3) |
+| Technologies (21, in the 40K tab) | Gene-Seed spine (5) and side organs (5); power armour Mk II–IV; Boltgun and Heavy Bolter; Drop Pods, Strike Cruiser, Battle Barge; Codex Adherent doctrine (3) |
 | Sub-units | Tactical Squad (line, special forces), Neophyte Scouts and Apothecarion (support companies) |
 | Equipment | Power armour archetype with Mk II, Mk III and Mk IV |
 | Decisions (13) | Establish Project, Requisition a Gene-Forge, Harvest Gene-Seed, Recover Progenoids, 3 lineage choices, Found the First Chapter, Red Thirst mission and Sate the Red Thirst, Drop Pod Assault, Lance Strike, Orbital Bombardment |

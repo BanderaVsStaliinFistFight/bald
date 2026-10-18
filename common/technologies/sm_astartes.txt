@@ -118,6 +118,7 @@ technologies = {
 	}
 
 	sm_black_carapace = {
+		enable_subunits = { sm_tactical_squad }
 		sm_tactical_squad = { max_organisation = 5 }
 
 		research_cost = 2
@@ -527,24 +528,5 @@ technologies = {
 				NOT = { has_country_flag = sm_project_founded }
 			}
 		}
-	}
-
-	########################################
-	# Granted by decision only
-	########################################
-
-	# Unlocks Tactical Squads. Not researchable and not shown in any folder:
-	# only the "Found the First Chapter" decision grants it, via set_technology.
-	sm_chapter_founding = {
-		allow = { always = no }
-
-		enable_subunits = { sm_tactical_squad }
-
-		research_cost = 1
-		start_year = 1939
-
-		categories = { sm_codex_tech }
-
-		ai_will_do = { factor = 0 }
 	}
 }

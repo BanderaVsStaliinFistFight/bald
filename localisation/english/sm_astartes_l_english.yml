@@ -18,7 +18,7 @@
  sm_larramans_organ:0 "Larraman's Organ"
  sm_larramans_organ_desc:0 "The Healer: Larraman cells seal wounds in seconds, so far more of the wounded return to the line.\n\nUnlocks the §YApothecarion§!."
  sm_black_carapace:0 "Black Carapace"
- sm_black_carapace_desc:0 "The final implant lets a Battle-Brother interface with power armour.\n\nRequired to §YFound the First Chapter§!."
+ sm_black_carapace_desc:0 "The final implant lets a Battle-Brother interface with power armour.\n\nUnlocks §YTactical Squads§! and the §YFound the First Chapter§! decision."
 
  ### Technologies: side organs
  sm_biscopea:0 "Biscopea"
@@ -59,10 +59,6 @@
  sm_battle_company_doctrine_desc:0 "Every company follows the same Codex drills, so plans come together faster."
  sm_chapter_masters_council:0 "Chapter Master's Council"
  sm_chapter_masters_council_desc:0 "The Chapter's captains advise the high command."
-
- ### Technologies: granted by decision
- sm_chapter_founding:0 "Chapter Founding"
- sm_chapter_founding_desc:0 "Granted by founding the First Chapter. Unlocks §YTactical Squads§!."
 
  ### Sub-units
  sm_tactical_squad:0 "Tactical Squad"
@@ -127,7 +123,7 @@
  sm_choose_imperial_fists:0 "Lineage: Imperial Fists"
  sm_choose_imperial_fists_desc:0 "Build the Chapter on the gene-seed of Rogal Dorn. Strong defence and faster fortification, but no Betcher's Gland. This choice is permanent."
  sm_found_first_chapter:0 "Found the First Chapter"
- sm_found_first_chapter_desc:0 "Implant the first Battle-Brothers and raise the First Chapter. Unlocks Tactical Squads and adds a '1st Company' division template."
+ sm_found_first_chapter_desc:0 "Implant the first Battle-Brothers and raise the First Chapter. Makes room for 10 more Space Marine companies, opens the Crusade decisions and adds a '1st Company' division template."
  sm_red_thirst_mission:0 "The Red Thirst"
  sm_red_thirst_mission_desc:0 "War has woken the Red Thirst in the Chapter. Sate it before the timer runs out, or the §RBlack Rage§! takes hold for 120 days."
  sm_sate_red_thirst:0 "Sate the Red Thirst"

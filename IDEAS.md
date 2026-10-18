@@ -36,10 +36,10 @@ The mod is made of **technologies and decisions only**:
             │  unlocks Gene-Forges, +5 gene-seed
             ▼
  Research the Gene-Seed branch ─────────────► Black Carapace (1939)
-            │                                        │
+            │                                        │  unlocks Tactical Squads
  Gene-Forge decisions ──► GENE-SEED STOCK ──► Found a Chapter (decision)
             ▲                                        │  +10 special-forces min,
-            │                                        │  unlocks Tactical Squads
+            │                                        │  Crusade decisions
             │                                        ▼
  Recover Progenoids (decision) ◄──── Astartes companies fight at the front
                                              │
@@ -168,7 +168,7 @@ Each formation matches a company in the Codex structure of a Chapter:
 | Techmarine Cadre | support company (like maintenance) | Mk III | — | reliability, equipment capture |
 | Chaplaincy | support company | Found the First Chapter | — | +org, +morale |
 | Librarius | support company | Psychic Hoods (1941) | — | +initiative, +recon |
-| Tactical Squad | line battalion | Found the First Chapter | 2nd–7th | the core unit |
+| Tactical Squad | line battalion | Black Carapace | 2nd–7th | the core unit |
 | Assault Squad | line battalion | Jump Packs | 8th | breakthrough, speed |
 | Devastator Squad | line battalion | Heavy Bolter | 9th | firepower, low defence |
 | Terminator Squad | line battalion | Tactical Dreadnought Armour | 1st | very slow, very tough |
@@ -203,7 +203,7 @@ There are five decision categories. The category header always shows the current
 | Decision | Cost | Requires | Effect |
 |---|---|---|---|
 | **Choose Gene-Seed Lineage** *(9 options, pick one; see table below)* | 75 PP | Ossmodula | permanent lineage spirit; unlocks that lineage's flaw mission |
-| **Found the First Chapter** | 20 gene-seed, 150 PP, 5k manpower | Black Carapace, a lineage, Mk II | grants the Tactical Squad and Chaplaincy techs; +10 to the special-forces minimum (`special_forces_min`; one battalion per company); creates a "1st Company" division template |
+| **Found the First Chapter** | 20 gene-seed, 150 PP, 5k manpower | Black Carapace, a lineage, Mk II | opens the Crusade decisions; grants the Chaplaincy tech (planned); +10 to the special-forces minimum (`special_forces_min`; one battalion per company); creates a "1st Company" division template |
 | **Appoint a Chapter Master** | 50 PP | Chapter founded | creates a field marshal with Astartes traits |
 | **Ordain a Captain / Chaplain / Librarian** *(max 3 each)* | 25 PP | Chapter founded | creates a corps commander with a matching trait |
 | **Second Founding** *(repeatable, max 3)* | 40 gene-seed, 200 PP | 1942+, previous Chapter founded | +10 special-forces minimum; successor Chapter spirit |
@@ -272,9 +272,11 @@ The late tech *Gene-Seed Purification* halves these penalties.
 - **Stat target.** One Astartes company ≈ 3 infantry battalions in combat, at about
   4–5× the production cost. Power armour gets enough armour value that infantry without
   anti-tank weapons can't fully pierce it.
-- **Gating.** Tactical Squads are unlocked only through the *Found the First Chapter*
-  decision, which grants the tech with `set_technology`. Researching ahead alone can't
-  skip the decision.
+- **Gating.** Black Carapace unlocks Tactical Squads, the way vanilla techs unlock units
+  (`enable_subunits`). Until the Chapter is founded they share the vanilla special-forces
+  limit; founding raises it. Up to v0.1.4 only the *Found the First Chapter* decision
+  unlocked them, through a hidden tech granted with `set_technology`; vanilla never
+  unlocks units that way, and no Space Marine units showed up in-game.
 - **AI.** Low `ai_will_do` by default. Majors with ≥ 4 research slots pursue the project at
   a moderate weight.
 
@@ -285,11 +287,10 @@ The late tech *Gene-Seed Purification* halves these penalties.
 This is what v0.1.0 contains. It also includes the whole orbital layer, which wasn't in the
 original minimum plan:
 
-- **Techs (21 in the tab, 1 granted by decision):** the 5 Gene-Seed spine techs, 5 side
+- **Techs (21, in the tab):** the 5 Gene-Seed spine techs, 5 side
   organs (Biscopea, Haemastamen, Occulobe, Betcher's Gland, Progenoid Glands), power
   armour Mk II–IV, Boltgun, Heavy Bolter, Drop Pods, Strike Cruiser, Battle Barge, and the
-  Codex Adherent path. The decision-only tech is Chapter Founding, which unlocks Tactical
-  Squads.
+  Codex Adherent path.
 - **Decisions (13):** Establish Project, Gene-Forge, Harvest, Recover Progenoids, Choose
   Lineage (Ultramarines, Blood Angels, Imperial Fists), Found the First Chapter, the Red
   Thirst mission and Sate the Red Thirst, Drop Pod Assault, Lance Strike and Orbital
