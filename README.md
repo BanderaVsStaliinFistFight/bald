@@ -65,20 +65,34 @@ All numbers are first-pass placeholders, and all icons are generated placeholder
 | `common/decisions/` | decision categories and decisions |
 | `interface/sm_astartes.gfx`, `gfx/interface/sm_astartes/` | sprites and placeholder textures |
 | `localisation/english/` | English text |
-| `tools/` | checker and icon generator (not loaded by the game) |
+| `tools/` | checker, icon generator and tech-screen patcher (not loaded by the game) |
 
 Every key starts with `sm_`.
 
 ## Known issue: no Astartes tech tab
 
-v0.1.0 added an Astartes tab to the research screen and defined its window in a separate
-file, `interface/sm_astartes_techtree.gui`. In-game the research screen then wouldn't
-open. v0.1.1 removes the tab. The research screen should work again, but the Astartes
-techs don't appear anywhere in it.
+A new tab needs two things inside the vanilla `countrytechtreeview` window of
+`interface/countrytechtreeview.gui`:
+- a window named after the folder, holding a gridbox named after the tree's first tech
+  (`sm_geneseed_sequencing_tree`)
+- a button named `sm_astartes_folder_tab` in `folder_tabs`
 
-The tab needs its window added to a copy of vanilla `interface/countrytechtreeview.gui`,
-next to the vanilla folder windows. That file isn't in this repo yet. The tab layout from
-v0.1.0 is in commit `1cbfa9a`.
+v0.1.0 put the window in a separate file, so the game never found it and the research
+screen wouldn't open. v0.1.1 removes the tab, so the Astartes techs don't appear in the
+research screen at all.
+
+The fix is ready but needs the current vanilla `interface/countrytechtreeview.gui` from
+your game install. It changes between game versions and isn't public, so the mod has to
+build its override from your copy:
+
+```
+python3 tools/patch_techtree_gui.py "<HOI4 install folder>"
+```
+
+This copies a vanilla folder's frame into a new `sm_astartes_folder` window and adds the
+tab after the last vanilla tab. Everything else in the file stays vanilla. Then the
+folder goes back into `common/technology_tags/` and the techs get their tab positions
+back (layout: commit `1cbfa9a`).
 
 Until then, you can test the rest of the mod with the console (`~`). The `research`
 command should grant a tech by name, for example:
@@ -115,8 +129,10 @@ for lines that mention `sm_`.
 python3 tools/check_mod.py                       # structure, references, localisation, sprites
 python3 tools/check_mod.py --cwtools PATH        # also check effect/trigger/modifier names
 python3 tools/make_placeholder_icons.py          # regenerate placeholder icons and interface/sm_astartes.gfx
+python3 tools/patch_techtree_gui.py GAME_DIR     # build interface/countrytechtreeview.gui with the Astartes tab
 ```
 
-`PATH` is a checkout of `https://github.com/cwtools/cwtools-hoi4-config`. Both scripts
+`PATH` is a checkout of `https://github.com/cwtools/cwtools-hoi4-config`. `GAME_DIR` is
+your HOI4 install folder; re-run the patch after a game update changes the tech screen. Both scripts
 need Python 3, and the icon generator also needs Pillow. To use real art, overwrite a
 DDS file in `gfx/interface/sm_astartes/` and keep its filename.

@@ -153,4 +153,9 @@ spriteTypes = {
 		name = "GFX_decision_sm_astartes"
 		texturefile = "gfx/interface/sm_astartes/decision_category_astartes.dds"
 	}
+	spriteType = {
+		name = "GFX_sm_astartes_folder_tab"
+		texturefile = "gfx/interface/sm_astartes/techtree_astartes_tab.dds"
+		noOfFrames = 2
+	}
 }

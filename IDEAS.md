@@ -312,15 +312,19 @@ original minimum plan:
   - `localisation/english/sm_astartes_l_english.yml`
   - `interface/sm_astartes.gfx` and
     `gfx/interface/sm_astartes/` (placeholder icons)
-  - `tools/check_mod.py` (static checks) and `tools/make_placeholder_icons.py`
+  - `tools/check_mod.py` (static checks), `tools/make_placeholder_icons.py` and
+    `tools/patch_techtree_gui.py` (builds the tech-screen override)
 - Target tech modifiers at subunit names (`sm_tactical_squad = { … }`). That avoids
   adding a new unit category to vanilla's unit tags.
 - Lineage bonuses use `equipment_bonus` on the `sm_power_armour` archetype, so they buff
   only Astartes battalions.
 - **The tech tab needs one vanilla override.** v0.1.0 kept the tech folder's window in its
   own `interface/sm_astartes_techtree.gui`, and the research screen stopped opening. The
-  folder's window has to go into a copy of vanilla `interface/countrytechtreeview.gui`,
-  which then becomes the mod's only override.
+  folder's window (with a `sm_geneseed_sequencing_tree` gridbox) and its
+  `sm_astartes_folder_tab` button have to go inside the vanilla `countrytechtreeview`
+  window, so the mod overrides `interface/countrytechtreeview.gui`.
+  `tools/patch_techtree_gui.py` builds that override from the player's own game file.
+  It's the mod's only override.
 
 ---
 

@@ -78,6 +78,10 @@ SPRITES = [
     ("GFX_decision_sm_astartes", "decision_category_astartes", DECISION, (90, 90, 100), "SM"),
 ]
 
+# Research-screen folder tab: two frames side by side (normal, selected), like vanilla
+# folder tabs. 86x30 per frame fits vanilla's 89px tab spacing.
+TAB = ("GFX_sm_astartes_folder_tab", "techtree_astartes_tab", (86, 30), CHAPTER, "40K")
+
 
 def fit_font(draw, text, width, height):
     """Largest default font size whose rendering of text fits inside width x height."""
@@ -103,6 +107,15 @@ def make_icon(size, background, label, text_colour):
     return image
 
 
+def make_tab(frame_size, background, label):
+    w, h = frame_size
+    image = Image.new("RGBA", (w * 2, h), (0, 0, 0, 0))
+    image.paste(make_icon(frame_size, background, label, (240, 230, 210)), (0, 0))
+    selected = tuple(min(255, c + 60) for c in background)
+    image.paste(make_icon(frame_size, selected, label, (255, 255, 255)), (w, 0))
+    return image
+
+
 def main():
     out_dir = ROOT / TEXTURE_DIR
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -122,9 +135,18 @@ def main():
             f'\t\ttexturefile = "{TEXTURE_DIR}/{stem}.dds"',
             "\t}",
         ]
+    name, stem, size, background, label = TAB
+    make_tab(size, background, label).save(out_dir / f"{stem}.dds")
+    lines += [
+        "\tspriteType = {",
+        f'\t\tname = "{name}"',
+        f'\t\ttexturefile = "{TEXTURE_DIR}/{stem}.dds"',
+        "\t\tnoOfFrames = 2",
+        "\t}",
+    ]
     lines.append("}")
     GFX_FILE.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"Wrote {len(SPRITES)} icons to {TEXTURE_DIR} and {GFX_FILE.relative_to(ROOT)}")
+    print(f"Wrote {len(SPRITES) + 1} icons to {TEXTURE_DIR} and {GFX_FILE.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

@@ -6,7 +6,9 @@ Catches the mistakes that otherwise only show up in-game or in error.log:
   * references to techs, sub-units, equipment, ideas, missions or dynamic modifiers
     that the mod doesn't define (vanilla names that are allowed are listed below)
   * missing localisation keys and missing sprites
-  * a missing <root tech>_tree gridbox for the Astartes tech folder
+  * a tech folder without its window and tab inside the vanilla countrytechtreeview
+    window of interface/countrytechtreeview.gui (that stopped the research screen
+    opening in v0.1.0), or a root tech without its <root tech>_tree gridbox there
   * with --cwtools PATH: effect, trigger and modifier names checked against the
     game's script documentation shipped in the CWTools HOI4 rules
     (https://github.com/cwtools/cwtools-hoi4-config)
@@ -132,6 +134,16 @@ def top_block(items, key, problems):
     return found[0]
 
 
+def named(items, key, name, deep=True):
+    """Bodies of `key = { name = "<name>" ... }` blocks (key case-insensitive)."""
+    found = []
+    for k, _, value, _ in (walk(items) if deep else items):
+        if isinstance(value, list) and k.lower() == key and \
+                any(ck.lower() == "name" and cv == name for ck, _, cv, _ in value):
+            found.append(value)
+    return found
+
+
 def bare_tokens(block):
     return [k for k, op, _, _ in block if op is None]
 
@@ -216,7 +228,8 @@ def main():
     # The mod's tech folder and categories are optional: v0.1.1 has none.
     tag_items = items_in("common/technology_tags")
     tech_categories = set(bare_tokens(top_block(tag_items, "technology_categories", problems))) if tag_items else set()
-    folders = set(bare_tokens(top_block(tag_items, "technology_folders", problems))) if tag_items else set()
+    folder_block = top_block(tag_items, "technology_folders", problems) if tag_items else []
+    folders = set(bare_tokens(folder_block)) | {k for k, _, _ in blocks(folder_block)}
     units = {k: v for k, v, _ in blocks(top_block(items_in("common/units/sm_"), "sub_units", problems))}
     equipment = {k: v for k, v, _ in blocks(top_block(items_in("common/units/equipment"), "equipments", problems))}
     ideas = {}
@@ -231,7 +244,24 @@ def main():
         decisions.update({k: v for k, v, _ in blocks(body)})
     missions = {k for k, v in decisions.items() if values_of(v, "days_mission_timeout")}
     sprites = set(values_of(items_in("interface/sm_astartes.gfx"), "name"))
-    gridboxes = {v for k, _, v, _ in walk(items_in("interface/sm_astartes_techtree.gui")) if k == "name"}
+
+    # Tech folders. The research screen only finds a folder's window and tab inside the
+    # vanilla countrytechtreeview window.
+    view = (named(items_in("interface/countrytechtreeview.gui"), "containerwindowtype", "countrytechtreeview")
+            or [[]])[0]
+    tab_rows = named(view, "containerwindowtype", "folder_tabs")
+    folder_windows = {}
+    for folder in sorted(folders):
+        window = named(view, "containerwindowtype", folder, deep=False)
+        if window:
+            folder_windows[folder] = window[0]
+        else:
+            problems.append(f"tech folder {folder}: no '{folder}' window inside countrytechtreeview in "
+                            "interface/countrytechtreeview.gui, so the research screen won't open "
+                            "(generate it with tools/patch_techtree_gui.py)")
+        if not (tab_rows and named(tab_rows[0], "buttontype", f"{folder}_tab")):
+            problems.append(f"tech folder {folder}: no '{folder}_tab' button in folder_tabs in "
+                            "interface/countrytechtreeview.gui")
 
     # Technologies.
     targets = {t for v in techs.values() for t in values_of(v, "leads_to_tech")}
@@ -262,11 +292,12 @@ def main():
             folder_name = (values_of(folder, "name") or [None])[0]
             if folder_name not in folders:
                 problems.append(f"technology {name}: unknown folder {folder_name}")
-        if folder_blocks:
-            if f"GFX_{name}_medium" not in sprites:
-                problems.append(f"technology {name}: missing sprite GFX_{name}_medium")
-            if name not in targets and f"{name}_tree" not in gridboxes:
-                problems.append(f"technology {name}: root tech needs a gridbox {name}_tree")
+            window = folder_windows.get(folder_name)
+            if name not in targets and window is not None and not named(window, "gridboxtype", f"{name}_tree"):
+                problems.append(f"technology {name}: root tech needs a gridbox {name}_tree "
+                                f"in the {folder_name} window")
+        if folder_blocks and f"GFX_{name}_medium" not in sprites:
+            problems.append(f"technology {name}: missing sprite GFX_{name}_medium")
     for key in [f"{f}_name" for f in folders] + [f"{f}_desc" for f in folders] + list(tech_categories):
         if key not in loc:
             problems.append(f"missing localisation {key}")
