@@ -25,7 +25,6 @@ sm_astartes_project_category = {
 
 		complete_effect = {
 			set_country_flag = sm_project_founded
-			custom_effect_tooltip = sm_reveals_astartes_tab_tt
 			add_tech_bonus = {
 				name = sm_establish_astartes_project
 				bonus = 0.5

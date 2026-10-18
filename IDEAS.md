@@ -1,6 +1,7 @@
 # Adeptus Astartes — HOI4 Mod Design Ideas
 
-> Status: **v0.1.0 built**: the minimum viable version below, plus the full orbital layer.
+> Status: **v0.1.1**: the minimum viable version below, plus the full orbital layer. The
+> Astartes tech tab is removed for now because it broke the research screen (see README).
 > See [README.md](README.md). Every number here is still a placeholder to balance later.
 
 ## Pitch
@@ -301,23 +302,25 @@ original minimum plan:
 
 - Prefix every key with `sm_` to avoid clashes with other mods.
 - Files:
-  - `common/technology_tags/sm_astartes_tags.txt` (new folder and categories)
+  - `common/technology_tags/sm_astartes_tags.txt` (new folder and categories; removed in
+    v0.1.1 until the tab is rebuilt)
   - `common/technologies/sm_astartes.txt`
   - `common/decisions/sm_astartes_decisions.txt` and `common/decisions/categories/sm_astartes_categories.txt`
   - `common/units/sm_astartes.txt` and `common/units/equipment/sm_power_armour.txt`
   - `common/ideas/sm_astartes_spirits.txt` (spirits applied *by* decisions)
   - `common/dynamic_modifiers/sm_astartes_modifiers.txt` (Gene-Forge and Drop Pod modifiers)
   - `localisation/english/sm_astartes_l_english.yml`
-  - `interface/sm_astartes_techtree.gui` (tech tab window), `interface/sm_astartes.gfx` and
+  - `interface/sm_astartes.gfx` and
     `gfx/interface/sm_astartes/` (placeholder icons)
   - `tools/check_mod.py` (static checks) and `tools/make_placeholder_icons.py`
 - Target tech modifiers at subunit names (`sm_tactical_squad = { … }`). That avoids
   adding a new unit category to vanilla's unit tags.
 - Lineage bonuses use `equipment_bonus` on the `sm_power_armour` archetype, so they buff
   only Astartes battalions.
-- **No vanilla file is overridden.** The tech folder's window lives in its own
-  `interface/sm_astartes_techtree.gui`. If the game turns out to need it inside vanilla
-  `countrytechtreeview.gui`, that becomes the mod's only override.
+- **The tech tab needs one vanilla override.** v0.1.0 kept the tech folder's window in its
+  own `interface/sm_astartes_techtree.gui`, and the research screen stopped opening. The
+  folder's window has to go into a copy of vanilla `interface/countrytechtreeview.gui`,
+  which then becomes the mod's only override.
 
 ---
 

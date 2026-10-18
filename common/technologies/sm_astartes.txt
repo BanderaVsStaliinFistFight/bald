@@ -1,9 +1,12 @@
 ### Adeptus Astartes technologies.
-### Every tech sits in the Astartes folder in one tree rooted at Gene-Seed Sequencing.
-### The whole tree stays hidden until the "Establish the Astartes Project" decision
-### sets sm_project_founded (allow_branch on the root).
+### One tree rooted at Gene-Seed Sequencing, hidden until the "Establish the Astartes
+### Project" decision sets sm_project_founded (allow_branch on the root).
 ###
-### Positions are in tech-grid slots relative to the root's grid, two rows per tier.
+### The techs have no folder yet, so they don't show in the research screen. v0.1.0 put
+### them in a new Astartes folder whose window lived in its own .gui file, and that stopped
+### the research screen opening. The folder comes back once its window is added to a copy
+### of vanilla interface/countrytechtreeview.gui (layout: see commit 1cbfa9a).
+###
 ### Unit modifiers target the Astartes sub-units by name, so vanilla unit_tags stays untouched.
 
 technologies = {
@@ -18,16 +21,9 @@ technologies = {
 		research_cost = 1.5
 		start_year = 1936
 
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 9 y = 0 }
-		}
-
 		path = { leads_to_tech = sm_secondary_heart research_cost_coeff = 1 }
 		path = { leads_to_tech = sm_mk2_crusade_armour research_cost_coeff = 1 }
 		path = { leads_to_tech = sm_boltgun research_cost_coeff = 1 }
-
-		categories = { sm_geneseed_tech }
 
 		ai_will_do = { factor = 2 }
 	}
@@ -38,16 +34,9 @@ technologies = {
 		research_cost = 1.5
 		start_year = 1936
 
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 3 y = 2 }
-		}
-
 		path = { leads_to_tech = sm_ossmodula research_cost_coeff = 1 }
 		path = { leads_to_tech = sm_biscopea research_cost_coeff = 1 }
 		path = { leads_to_tech = sm_haemastamen research_cost_coeff = 1 }
-
-		categories = { sm_geneseed_tech }
 
 		ai_will_do = { factor = 2 }
 	}
@@ -59,14 +48,7 @@ technologies = {
 		research_cost = 1.5
 		start_year = 1937
 
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 3 y = 4 }
-		}
-
 		path = { leads_to_tech = sm_larramans_organ research_cost_coeff = 1 }
-
-		categories = { sm_geneseed_tech }
 
 		ai_will_do = { factor = 2 }
 	}
@@ -78,15 +60,8 @@ technologies = {
 		research_cost = 1.5
 		start_year = 1938
 
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 3 y = 6 }
-		}
-
 		path = { leads_to_tech = sm_black_carapace research_cost_coeff = 1 }
 		path = { leads_to_tech = sm_occulobe research_cost_coeff = 1 }
-
-		categories = { sm_geneseed_tech }
 
 		ai_will_do = { factor = 2 }
 	}
@@ -97,16 +72,9 @@ technologies = {
 		research_cost = 2
 		start_year = 1939
 
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 3 y = 8 }
-		}
-
 		path = { leads_to_tech = sm_betchers_gland research_cost_coeff = 1 }
 		path = { leads_to_tech = sm_progenoid_glands research_cost_coeff = 1 }
 		path = { leads_to_tech = sm_combat_squads research_cost_coeff = 1 }
-
-		categories = { sm_geneseed_tech }
 
 		ai_will_do = { factor = 2 }
 	}
@@ -121,13 +89,6 @@ technologies = {
 		research_cost = 1
 		start_year = 1936
 
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 0 y = 4 }
-		}
-
-		categories = { sm_geneseed_tech }
-
 		ai_will_do = { factor = 1 }
 	}
 
@@ -137,13 +98,6 @@ technologies = {
 		research_cost = 1
 		start_year = 1936
 
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 6 y = 4 }
-		}
-
-		categories = { sm_geneseed_tech }
-
 		ai_will_do = { factor = 1 }
 	}
 
@@ -152,13 +106,6 @@ technologies = {
 
 		research_cost = 1
 		start_year = 1938
-
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 0 y = 8 }
-		}
-
-		categories = { sm_geneseed_tech }
 
 		ai_will_do = { factor = 1 }
 	}
@@ -172,13 +119,6 @@ technologies = {
 		research_cost = 1
 		start_year = 1939
 
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 0 y = 10 }
-		}
-
-		categories = { sm_geneseed_tech }
-
 		ai_will_do = { factor = 1 }
 	}
 
@@ -186,13 +126,6 @@ technologies = {
 	sm_progenoid_glands = {
 		research_cost = 1
 		start_year = 1939
-
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 3 y = 10 }
-		}
-
-		categories = { sm_geneseed_tech }
 
 		ai_will_do = { factor = 1 }
 	}
@@ -207,14 +140,7 @@ technologies = {
 		research_cost = 1.5
 		start_year = 1937
 
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 12 y = 2 }
-		}
-
 		path = { leads_to_tech = sm_mk3_iron_armour research_cost_coeff = 1 }
-
-		categories = { sm_wargear_tech }
 
 		ai_will_do = { factor = 2 }
 	}
@@ -225,15 +151,8 @@ technologies = {
 		research_cost = 1.5
 		start_year = 1939
 
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 12 y = 4 }
-		}
-
 		path = { leads_to_tech = sm_mk4_maximus_armour research_cost_coeff = 1 }
 		path = { leads_to_tech = sm_drop_pods research_cost_coeff = 1 }
-
-		categories = { sm_wargear_tech }
 
 		ai_will_do = { factor = 2 }
 	}
@@ -243,13 +162,6 @@ technologies = {
 
 		research_cost = 1.5
 		start_year = 1940
-
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 12 y = 6 }
-		}
-
-		categories = { sm_wargear_tech }
 
 		ai_will_do = { factor = 2 }
 	}
@@ -264,14 +176,7 @@ technologies = {
 		research_cost = 1.5
 		start_year = 1937
 
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 18 y = 2 }
-		}
-
 		path = { leads_to_tech = sm_heavy_bolter research_cost_coeff = 1 }
-
-		categories = { sm_wargear_tech }
 
 		ai_will_do = { factor = 1 }
 	}
@@ -285,13 +190,6 @@ technologies = {
 		research_cost = 1.5
 		start_year = 1938
 
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 18 y = 4 }
-		}
-
-		categories = { sm_wargear_tech }
-
 		ai_will_do = { factor = 1 }
 	}
 
@@ -303,14 +201,7 @@ technologies = {
 		research_cost = 2
 		start_year = 1940
 
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 15 y = 6 }
-		}
-
 		path = { leads_to_tech = sm_strike_cruiser research_cost_coeff = 1 }
-
-		categories = { sm_void_tech }
 
 		ai_will_do = { factor = 1 }
 	}
@@ -319,14 +210,7 @@ technologies = {
 		research_cost = 2.5
 		start_year = 1942
 
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 15 y = 8 }
-		}
-
 		path = { leads_to_tech = sm_battle_barge research_cost_coeff = 1 }
-
-		categories = { sm_void_tech }
 
 		ai_will_do = { factor = 1 }
 	}
@@ -334,13 +218,6 @@ technologies = {
 	sm_battle_barge = {
 		research_cost = 3
 		start_year = 1944
-
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 15 y = 10 }
-		}
-
-		categories = { sm_void_tech }
 
 		ai_will_do = { factor = 1 }
 	}
@@ -355,14 +232,7 @@ technologies = {
 		research_cost = 1.5
 		start_year = 1939
 
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 9 y = 10 }
-		}
-
 		path = { leads_to_tech = sm_battle_company_doctrine research_cost_coeff = 1 }
-
-		categories = { sm_codex_tech }
 
 		ai_will_do = { factor = 1 }
 	}
@@ -373,14 +243,7 @@ technologies = {
 		research_cost = 1.5
 		start_year = 1940
 
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 9 y = 12 }
-		}
-
 		path = { leads_to_tech = sm_chapter_masters_council research_cost_coeff = 1 }
-
-		categories = { sm_codex_tech }
 
 		ai_will_do = { factor = 1 }
 	}
@@ -390,13 +253,6 @@ technologies = {
 
 		research_cost = 1.5
 		start_year = 1941
-
-		folder = {
-			name = sm_astartes_folder
-			position = { x = 9 y = 14 }
-		}
-
-		categories = { sm_codex_tech }
 
 		ai_will_do = { factor = 1 }
 	}
@@ -414,8 +270,6 @@ technologies = {
 
 		research_cost = 1
 		start_year = 1939
-
-		categories = { sm_codex_tech }
 
 		ai_will_do = { factor = 0 }
 	}

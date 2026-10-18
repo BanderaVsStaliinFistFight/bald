@@ -213,9 +213,10 @@ def main():
 
     # Definitions.
     techs = {k: v for k, v, _ in blocks(top_block(items_in("common/technologies"), "technologies", problems))}
+    # The mod's tech folder and categories are optional: v0.1.1 has none.
     tag_items = items_in("common/technology_tags")
-    tech_categories = set(bare_tokens(top_block(tag_items, "technology_categories", problems)))
-    folders = set(bare_tokens(top_block(tag_items, "technology_folders", problems)))
+    tech_categories = set(bare_tokens(top_block(tag_items, "technology_categories", problems))) if tag_items else set()
+    folders = set(bare_tokens(top_block(tag_items, "technology_folders", problems))) if tag_items else set()
     units = {k: v for k, v, _ in blocks(top_block(items_in("common/units/sm_"), "sub_units", problems))}
     equipment = {k: v for k, v, _ in blocks(top_block(items_in("common/units/equipment"), "equipments", problems))}
     ideas = {}

@@ -8,8 +8,9 @@ The mod is **technologies and decisions only**. It has no focus trees, events, n
 countries or map changes, and doesn't override any vanilla file, so it runs alongside
 vanilla and focus-tree mods. The full design is in [IDEAS.md](IDEAS.md).
 
-**Status: v0.1.0, first playable build. It hasn't been tested in-game yet**, so see
-[Testing status](#testing-status).
+**Status: v0.1.1.** The Astartes technologies are missing from the research screen in
+this build. v0.1.0's Astartes tech tab stopped the research screen from opening, so the
+tab is removed until it's rebuilt. See [Known issue](#known-issue-no-astartes-tech-tab).
 
 ## Install
 
@@ -27,7 +28,8 @@ vanilla and focus-tree mods. The full design is in [IDEAS.md](IDEAS.md).
 ## How to play
 
 1. **Decisions → The Astartes Project → Establish the Astartes Project** (100 PP).
-   This reveals the **Adeptus Astartes** tech tab and gives 5 gene-seed.
+   This unlocks the Astartes techs and gives 5 gene-seed. In v0.1.1 the techs aren't in
+   the research screen, so use the console for now (see [Known issue](#known-issue-no-astartes-tech-tab)).
 2. Research **Gene-Seed Sequencing**, then requisition up to 3 **Gene-Forges** (each uses
    3 civilian factories for 120 days) and **Harvest Gene-Seed** every 60 days.
 3. Research **Mk II power armour** early, so you can build up a stockpile.
@@ -41,11 +43,11 @@ vanilla and focus-tree mods. The full design is in [IDEAS.md](IDEAS.md).
 
 The category descriptions show your current gene-seed stockpile.
 
-## What's in v0.1.0
+## What's in v0.1.1
 
 | | Content |
 |---|---|
-| Technologies (21 in the tab + 1 granted by decision) | Gene-Seed spine (5) and side organs (5); power armour Mk II–IV; Boltgun and Heavy Bolter; Drop Pods, Strike Cruiser, Battle Barge; Codex Adherent doctrine (3) |
+| Technologies (21 researchable + 1 granted by decision; not in the research screen yet) | Gene-Seed spine (5) and side organs (5); power armour Mk II–IV; Boltgun and Heavy Bolter; Drop Pods, Strike Cruiser, Battle Barge; Codex Adherent doctrine (3) |
 | Sub-units | Tactical Squad (line, special forces), Neophyte Scouts and Apothecarion (support companies) |
 | Equipment | Power armour archetype with Mk II, Mk III and Mk IV |
 | Decisions (13) | Establish Project, Requisition a Gene-Forge, Harvest Gene-Seed, Recover Progenoids, 3 lineage choices, Found the First Chapter, Red Thirst mission and Sate the Red Thirst, Drop Pod Assault, Lance Strike, Orbital Bombardment |
@@ -57,40 +59,52 @@ All numbers are first-pass placeholders, and all icons are generated placeholder
 
 | Path | Contents |
 |---|---|
-| `common/technology_tags/` | tech categories and the `sm_astartes_folder` tech folder |
 | `common/technologies/` | all technologies |
 | `common/units/`, `common/units/equipment/` | sub-units and power armour |
 | `common/ideas/`, `common/dynamic_modifiers/` | spirits and modifiers applied by decisions |
 | `common/decisions/` | decision categories and decisions |
-| `interface/sm_astartes_techtree.gui` | window for the Astartes tech tab |
 | `interface/sm_astartes.gfx`, `gfx/interface/sm_astartes/` | sprites and placeholder textures |
 | `localisation/english/` | English text |
 | `tools/` | checker and icon generator (not loaded by the game) |
 
 Every key starts with `sm_`.
 
+## Known issue: no Astartes tech tab
+
+v0.1.0 added an Astartes tab to the research screen and defined its window in a separate
+file, `interface/sm_astartes_techtree.gui`. In-game the research screen then wouldn't
+open. v0.1.1 removes the tab. The research screen should work again, but the Astartes
+techs don't appear anywhere in it.
+
+The tab needs its window added to a copy of vanilla `interface/countrytechtreeview.gui`,
+next to the vanilla folder windows. That file isn't in this repo yet. The tab layout from
+v0.1.0 is in commit `1cbfa9a`.
+
+Until then, you can test the rest of the mod with the console (`~`). The `research`
+command should grant a tech by name, for example:
+
+```
+research sm_geneseed_sequencing
+research sm_ossmodula
+research sm_black_carapace
+research sm_mk2_crusade_armour
+research sm_drop_pods
+```
+
 ## Testing status
 
-The mod was written without a copy of the game, so nothing has been run in HOI4 yet.
-
-**Checked:** `tools/check_mod.py` passes. It parses every script file and verifies:
+The mod was written without a copy of the game. `tools/check_mod.py` passes. It parses
+every script file and verifies:
 - cross-references between techs, units, equipment, ideas, missions and modifiers
 - localisation keys and sprites
 - every effect, trigger and modifier name, against the game's script documentation
   shipped with the [CWTools HOI4 rules](https://github.com/cwtools/cwtools-hoi4-config)
 
-**Needs an in-game check, most uncertain first:**
+**Still needs an in-game check:**
 
-1. **The tech tab.** Vanilla defines its tech-screen layout in
-   `interface/countrytechtreeview.gui`, which I couldn't see. This mod adds its folder
-   window in a separate file, `interface/sm_astartes_techtree.gui`, with a gridbox named
-   `sm_geneseed_sequencing_tree`. If the tab doesn't appear, or the techs are missing or
-   overlap, compare that file with a vanilla folder window (for example
-   `infantry_folder`) in `countrytechtreeview.gui`. Also check whether the tab button
-   needs an entry there.
-2. **Icon sizes.** Placeholder textures use guessed sizes (tech 64×64, unit 48×36,
+1. **Icon sizes.** Placeholder textures use guessed sizes (tech 64×64, unit 48×36,
    equipment 96×48, spirit 64×64, decision 40×40).
-3. **Balance.** Every cost and stat is a placeholder.
+2. **Balance.** Every cost and stat is a placeholder.
 
 After a test run, check `Documents/Paradox Interactive/Hearts of Iron IV/logs/error.log`
 for lines that mention `sm_`.
