@@ -1,0 +1,551 @@
+### Open Inner Circle: scripted effects.
+###
+### Unless a comment says "character scope", every effect here runs in Germany's country
+### scope, with ROOT = Germany. Germany keeps the browsing state in country variables:
+###   oic_filter      who the browser shows (see oic_in_filter): 0 everyone, 1 advisors,
+###                   2 generals, 3 admirals, 4 Inner Circle members
+###   oic_candidate   the character the browser points at
+###   oic_pos, oic_n  the candidate's place in the filter, and how many are in it
+### The candidate also carries the character flag oic_selected, so loops over
+### every_character can find it. Inner Circle members carry the character flag oic_member.
+###
+### Loops write to Germany's variables as ROOT.<name>: character scope has no country
+### variables of its own.
+
+# Moves the browser by the temp variable oic_step (1 next, -1 previous, 0 stay) through the
+# characters in the current filter, wrapping around at both ends. With oic_step = 0 the
+# candidate stays put if still in the filter, and the browser goes to the first character
+# if not.
+oic_move_cursor = {
+	set_variable = { oic_n = 0 }
+	set_variable = { oic_pos = 0 }
+	every_character = {
+		limit = { oic_in_filter = yes }
+		add_to_variable = { ROOT.oic_n = 1 }
+		if = {
+			limit = { has_character_flag = oic_selected }
+			set_variable = { ROOT.oic_pos = ROOT.oic_n }
+		}
+	}
+	every_character = {
+		limit = { has_character_flag = oic_selected }
+		clr_character_flag = oic_selected
+	}
+	clear_variable = oic_candidate
+
+	if = {
+		limit = { check_variable = { oic_n > 0 } }
+		set_variable = { oic_target = oic_pos }
+		add_to_variable = { oic_target = oic_step }
+		if = {
+			limit = {
+				check_variable = { oic_pos = 0 }
+				check_variable = { oic_step = 0 }
+			}
+			set_variable = { oic_target = 1 }
+		}
+		if = {
+			limit = { check_variable = { oic_target < 1 } }
+			set_variable = { oic_target = oic_n }
+		}
+		if = {
+			limit = { check_variable = { oic_target > oic_n } }
+			set_variable = { oic_target = 1 }
+		}
+		set_variable = { oic_i = 0 }
+		every_character = {
+			limit = { oic_in_filter = yes }
+			add_to_variable = { ROOT.oic_i = 1 }
+			if = {
+				limit = { check_variable = { ROOT.oic_i = ROOT.oic_target } }
+				set_character_flag = oic_selected
+				set_variable = { ROOT.oic_candidate = THIS }
+			}
+		}
+		set_variable = { oic_pos = oic_target }
+		clear_variable = oic_target
+		clear_variable = oic_i
+	}
+}
+
+# Keeps the browser where it is, or moves it to the first character if the candidate left
+# the filter.
+oic_refresh_cursor = {
+	set_temp_variable = { oic_step = 0 }
+	oic_move_cursor = yes
+}
+
+# Next filter: everyone > advisors > generals > admirals > Inner Circle > everyone.
+oic_cycle_filter = {
+	add_to_variable = { oic_filter = 1 }
+	if = {
+		limit = { check_variable = { oic_filter > 4 } }
+		set_variable = { oic_filter = 0 }
+	}
+	oic_refresh_cursor = yes
+}
+
+# Counts the Inner Circle and sets the variables behind the oic_inner_circle dynamic
+# modifier. Drops members who now lead Germany or are no longer advisors or commanders.
+# Each member counts once: as a statesman (political advisor), else an admiral, else an
+# officer (generals and the other advisor slots).
+oic_update_inner_circle = {
+	set_variable = { oic_members = 0 }
+	set_variable = { oic_statesmen = 0 }
+	set_variable = { oic_officers = 0 }
+	set_variable = { oic_admirals = 0 }
+	every_character = {
+		limit = { has_character_flag = oic_member }
+		if = {
+			limit = {
+				OR = {
+					is_country_leader = yes
+					NOT = { oic_is_advisor_or_commander = yes }
+				}
+			}
+			clr_character_flag = oic_member
+		}
+		else = {
+			add_to_variable = { ROOT.oic_members = 1 }
+			if = {
+				limit = { is_political_advisor = yes }
+				add_to_variable = { ROOT.oic_statesmen = 1 }
+			}
+			else_if = {
+				limit = { is_navy_leader = yes }
+				add_to_variable = { ROOT.oic_admirals = 1 }
+			}
+			else = {
+				add_to_variable = { ROOT.oic_officers = 1 }
+			}
+		}
+	}
+
+	# Per member: +1% stability. Per statesman: +0.1 political power a day. Per officer
+	# or admiral: +1% war support. Per officer: +0.02 army experience a day. Per admiral:
+	# +0.02 navy experience a day.
+	set_variable = { oic_stability = oic_members }
+	multiply_variable = { oic_stability = 0.01 }
+	set_variable = { oic_political_power = oic_statesmen }
+	multiply_variable = { oic_political_power = 0.1 }
+	set_variable = { oic_war_support = oic_officers }
+	add_to_variable = { oic_war_support = oic_admirals }
+	multiply_variable = { oic_war_support = 0.01 }
+	set_variable = { oic_army_experience = oic_officers }
+	multiply_variable = { oic_army_experience = 0.02 }
+	set_variable = { oic_navy_experience = oic_admirals }
+	multiply_variable = { oic_navy_experience = 0.02 }
+
+	if = {
+		limit = {
+			check_variable = { oic_members > 0 }
+			NOT = { has_dynamic_modifier = { modifier = oic_inner_circle } }
+		}
+		add_dynamic_modifier = { modifier = oic_inner_circle }
+	}
+	else_if = {
+		limit = {
+			check_variable = { oic_members = 0 }
+			has_dynamic_modifier = { modifier = oic_inner_circle }
+		}
+		remove_dynamic_modifier = { modifier = oic_inner_circle }
+	}
+	force_update_dynamic_modifier = yes
+}
+
+# Runs once a month: catches members and candidates that events, deaths or
+# retirements took away, and starts the browser in a new game.
+oic_monthly_update = {
+	oic_update_inner_circle = yes
+	oic_refresh_cursor = yes
+}
+
+oic_seat_candidate = {
+	var:oic_candidate = {
+		set_character_flag = oic_member
+	}
+	oic_update_inner_circle = yes
+	oic_refresh_cursor = yes
+}
+
+oic_dismiss_candidate = {
+	var:oic_candidate = {
+		clr_character_flag = oic_member
+	}
+	oic_update_inner_circle = yes
+	oic_refresh_cursor = yes
+}
+
+# Makes the candidate Germany's leader. The old leader keeps their leader role and joins
+# the browser's pool as a former leader, so they can be brought back.
+oic_make_candidate_leader = {
+	every_character = {
+		limit = { is_country_leader = yes }
+		set_character_flag = oic_former_leader
+	}
+	var:oic_candidate = {
+		clr_character_flag = oic_member
+		oic_promote_to_ruling_ideology = yes
+	}
+	oic_update_inner_circle = yes
+	oic_refresh_cursor = yes
+}
+
+# Character scope, ROOT = Germany. Makes this character the leader of Germany's ruling
+# party, with the current leader's sub-ideology, so the government doesn't change. Uses
+# the character's own leader role of that sub-ideology if they have one, and gives them
+# one if not.
+oic_promote_to_ruling_ideology = {
+	if = {
+		limit = { ROOT = { has_country_leader_ideology = nazism } }
+		if = {
+			limit = { has_ideology = nazism }
+			promote_character = nazism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = nazism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = gen_nazism } }
+		if = {
+			limit = { has_ideology = gen_nazism }
+			promote_character = gen_nazism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = gen_nazism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = fascism_ideology } }
+		if = {
+			limit = { has_ideology = fascism_ideology }
+			promote_character = fascism_ideology
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = fascism_ideology
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = falangism } }
+		if = {
+			limit = { has_ideology = falangism }
+			promote_character = falangism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = falangism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = rexism } }
+		if = {
+			limit = { has_ideology = rexism }
+			promote_character = rexism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = rexism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = marxism } }
+		if = {
+			limit = { has_ideology = marxism }
+			promote_character = marxism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = marxism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = leninism } }
+		if = {
+			limit = { has_ideology = leninism }
+			promote_character = leninism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = leninism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = stalinism } }
+		if = {
+			limit = { has_ideology = stalinism }
+			promote_character = stalinism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = stalinism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = anti_revisionism } }
+		if = {
+			limit = { has_ideology = anti_revisionism }
+			promote_character = anti_revisionism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = anti_revisionism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = anarchist_communism } }
+		if = {
+			limit = { has_ideology = anarchist_communism }
+			promote_character = anarchist_communism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = anarchist_communism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = conservatism } }
+		if = {
+			limit = { has_ideology = conservatism }
+			promote_character = conservatism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = conservatism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = liberalism } }
+		if = {
+			limit = { has_ideology = liberalism }
+			promote_character = liberalism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = liberalism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = socialism } }
+		if = {
+			limit = { has_ideology = socialism }
+			promote_character = socialism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = socialism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = despotism } }
+		if = {
+			limit = { has_ideology = despotism }
+			promote_character = despotism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = despotism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = oligarchism } }
+		if = {
+			limit = { has_ideology = oligarchism }
+			promote_character = oligarchism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = oligarchism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = anarchism } }
+		if = {
+			limit = { has_ideology = anarchism }
+			promote_character = anarchism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = anarchism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = moderatism } }
+		if = {
+			limit = { has_ideology = moderatism }
+			promote_character = moderatism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = moderatism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_country_leader_ideology = centrism } }
+		if = {
+			limit = { has_ideology = centrism }
+			promote_character = centrism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = centrism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	# A sub-ideology from another mod: use the ruling ideology group's usual one.
+	else_if = {
+		limit = { ROOT = { has_government = fascism } }
+		if = {
+			limit = { has_ideology = nazism }
+			promote_character = nazism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = nazism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_government = communism } }
+		if = {
+			limit = { has_ideology = stalinism }
+			promote_character = stalinism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = stalinism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_government = democratic } }
+		if = {
+			limit = { has_ideology = conservatism }
+			promote_character = conservatism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = conservatism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+	else = {
+		if = {
+			limit = { has_ideology = despotism }
+			promote_character = despotism
+		}
+		else = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = despotism
+					expire = "1965.1.1.1"
+				}
+				promote_leader = yes
+			}
+		}
+	}
+}

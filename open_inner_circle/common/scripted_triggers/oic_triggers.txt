@@ -1,0 +1,55 @@
+### Open Inner Circle: scripted triggers.
+### Character-scope triggers read Germany's browsing state through ROOT, so they only work
+### where ROOT is Germany (decisions, oic_* scripted effects, the monthly on_action).
+
+# Character scope. An advisor (any slot), a general, a field marshal or an admiral.
+oic_is_advisor_or_commander = {
+	OR = {
+		is_advisor = yes
+		is_unit_leader = yes
+	}
+}
+
+# Character scope. Everyone the browser can show: advisors and commanders, plus anyone who
+# led Germany before this mod replaced them (so Hitler can be brought back).
+oic_in_pool = {
+	OR = {
+		oic_is_advisor_or_commander = yes
+		has_character_flag = oic_former_leader
+	}
+}
+
+# Character scope. Is this character in the browser's current filter (ROOT.oic_filter)?
+#   0 everyone, 1 advisors, 2 generals, 3 admirals, 4 Inner Circle members
+oic_in_filter = {
+	OR = {
+		AND = {
+			check_variable = { ROOT.oic_filter = 0 }
+			oic_in_pool = yes
+		}
+		AND = {
+			check_variable = { ROOT.oic_filter = 1 }
+			is_advisor = yes
+		}
+		AND = {
+			check_variable = { ROOT.oic_filter = 2 }
+			is_army_leader = yes
+		}
+		AND = {
+			check_variable = { ROOT.oic_filter = 3 }
+			is_navy_leader = yes
+		}
+		AND = {
+			check_variable = { ROOT.oic_filter = 4 }
+			has_character_flag = oic_member
+		}
+	}
+}
+
+# Country scope (Germany). The browser points at a character who is still in the pool.
+oic_has_candidate = {
+	has_variable = oic_candidate
+	var:oic_candidate = {
+		oic_in_pool = yes
+	}
+}

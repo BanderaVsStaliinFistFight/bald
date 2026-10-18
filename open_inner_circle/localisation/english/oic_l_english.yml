@@ -1,0 +1,50 @@
+﻿l_english:
+ ### Decision category
+ oic_category:0 "Leaders and the Inner Circle"
+ oic_category_desc:0 "Any advisor, general or admiral of [ROOT.GetNameDef] can be made its leader or seated in the Inner Circle.\n\n[oic_GetCandidateLine]\n\n§YInner Circle:§! [?oic_members|0] members ([?oic_statesmen|0] statesmen, [?oic_officers|0] officers, [?oic_admirals|0] admirals)."
+ oic_candidate_line:0 "§YCandidate§! ([?oic_pos|0] of [?oic_n|0], [oic_GetFilterName]): §Y[?oic_candidate.GetName]§!, [oic_GetCandidateRole]. [oic_GetCandidateStatus]"
+ oic_no_candidate_line:0 "No one is selected. Take §YNext Candidate§! to browse, or §YBrowse§! to change who is listed."
+
+ ### Browser filters
+ oic_filter_everyone:0 "everyone"
+ oic_filter_advisors:0 "advisors"
+ oic_filter_generals:0 "generals"
+ oic_filter_admirals:0 "admirals"
+ oic_filter_members:0 "the Inner Circle"
+
+ ### Candidate roles and status
+ oic_role_advisor_and_commander:0 "advisor and commander"
+ oic_role_political_advisor:0 "political advisor"
+ oic_role_military_advisor:0 "military advisor"
+ oic_role_field_marshal:0 "field marshal"
+ oic_role_general:0 "general"
+ oic_role_admiral:0 "admiral"
+ oic_role_former_leader:0 "former leader"
+ oic_status_leader:0 "Leads the country."
+ oic_status_member:0 "In the Inner Circle."
+ oic_status_outsider:0 "Not in the Inner Circle."
+
+ ### Decisions
+ oic_make_leader:0 "Make [?oic_candidate.GetName] Leader"
+ oic_make_leader_desc:0 "Put [?oic_candidate.GetName] at the head of [ROOT.GetNameDef]. The government and its ideology stay the same."
+ oic_make_leader_tt:0 "§Y[?oic_candidate.GetName]§! becomes the leader of [ROOT.GetNameDef], with the current leader's ideology.\n[ROOT.GetLeader] steps down, and stays in the list as a former leader who can be brought back.\nIf [?oic_candidate.GetName] is in the Inner Circle, they leave it."
+ oic_seat_in_inner_circle:0 "Seat [?oic_candidate.GetName] in the Inner Circle"
+ oic_seat_in_inner_circle_desc:0 "Bring [?oic_candidate.GetName] into the Inner Circle. Every member strengthens the regime; what else they bring depends on their role."
+ oic_seat_tt:0 "§Y[?oic_candidate.GetName]§! joins the Inner Circle.\nEvery member: §G+1%§! stability.\nPolitical advisors: §G+0.10§! political power a day.\nGenerals and military advisors: §G+1%§! war support and §G+0.02§! army experience a day.\nAdmirals: §G+1%§! war support and §G+0.02§! navy experience a day."
+ oic_candidate_is_advisor_or_commander_tt:0 "[?oic_candidate.GetName] is an advisor, general or admiral"
+ oic_dismiss_from_inner_circle:0 "Dismiss [?oic_candidate.GetName] from the Inner Circle"
+ oic_dismiss_from_inner_circle_desc:0 "Send [?oic_candidate.GetName] back to their ordinary duties."
+ oic_dismiss_tt:0 "§Y[?oic_candidate.GetName]§! leaves the Inner Circle."
+ oic_next_candidate:0 "Next Candidate"
+ oic_next_candidate_desc:0 "Show the next character in the list."
+ oic_next_candidate_tt:0 "Shows the next character in the list."
+ oic_previous_candidate:0 "Previous Candidate"
+ oic_previous_candidate_desc:0 "Show the previous character in the list."
+ oic_previous_candidate_tt:0 "Shows the previous character in the list."
+ oic_change_filter:0 "Browse: [oic_GetFilterName]"
+ oic_change_filter_desc:0 "Change who the list shows: everyone, advisors, generals, admirals or the Inner Circle."
+ oic_change_filter_tt:0 "Lists the next group of characters."
+
+ ### Dynamic modifier
+ oic_inner_circle:0 "The Inner Circle"
+ oic_inner_circle_desc:0 "Those closest to the leadership: [?oic_members|0] members."
