@@ -1,0 +1,16 @@
+### Dynamic modifiers applied by Adeptus Astartes decisions.
+
+# State scope: a state turned into a Gene-Forge. The forge takes up one building slot.
+sm_gene_forge = {
+	icon = GFX_decision_sm_geneseed
+
+	local_building_slots = -1
+}
+
+# Country scope, 14 days after a Drop Pod Assault: the shock of the landing.
+sm_drop_pod_shock = {
+	icon = GFX_decision_sm_orbital
+
+	army_attack_factor = 0.05
+	breakthrough_factor = 0.05
+}

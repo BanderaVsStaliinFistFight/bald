@@ -1,0 +1,26 @@
+### Adeptus Astartes decision categories.
+### Every category description shows the current gene-seed stockpile (country variable sm_geneseed).
+
+# Open to every nation from game start.
+sm_astartes_project_category = {
+	icon = sm_astartes
+	priority = 50
+}
+
+sm_astartes_chapter_category = {
+	icon = sm_astartes
+	priority = 49
+
+	visible = {
+		has_country_flag = sm_project_founded
+	}
+}
+
+sm_astartes_crusade_category = {
+	icon = sm_astartes
+	priority = 48
+
+	visible = {
+		has_country_flag = sm_chapter_founded
+	}
+}

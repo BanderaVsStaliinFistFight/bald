@@ -1,6 +1,7 @@
 # Adeptus Astartes — HOI4 Mod Design Ideas
 
-> Status: **ideas / first draft**. Every number here is a placeholder to balance later.
+> Status: **v0.1.0 built**: the minimum viable version below, plus the full orbital layer.
+> See [README.md](README.md). Every number here is still a placeholder to balance later.
 
 ## Pitch
 
@@ -36,7 +37,7 @@ The mod is made of **technologies and decisions only**:
  Research the Gene-Seed branch ─────────────► Black Carapace (1939)
             │                                        │
  Gene-Forge decisions ──► GENE-SEED STOCK ──► Found a Chapter (decision)
-            ▲                                        │  +10 special-forces cap,
+            ▲                                        │  +10 special-forces min,
             │                                        │  unlocks Tactical Squads
             │                                        ▼
  Recover Progenoids (decision) ◄──── Astartes companies fight at the front
@@ -62,7 +63,7 @@ The mod is made of **technologies and decisions only**:
 
 All technologies sit in a new **Astartes** tab. The tab stays hidden until the
 project is established (`allow_branch = { has_country_flag = sm_project_founded }`).
-The tab has four branches.
+The tab has three branches.
 
 ### Branch 1 — Gene-Seed (20 techs)
 
@@ -129,6 +130,7 @@ which keeps the asset count low.
 | 1941 | Predator / Whirlwind *(stretch)* | armour / rocket-artillery battalions |
 | 1943 | Land Raider *(stretch)* | heavy armour battalion |
 | 1941 | Thunderhawk Gunship *(stretch)* | CAS/transport aircraft |
+| 1941 | Psychic Hoods *(stretch)* | *Librarius* support company |
 
 **Void assets** enable decisions only. They add no ships or units to the map, which keeps
 the orbital fantasy inside "techs + decisions".
@@ -187,10 +189,10 @@ There are five decision categories. The category header always shows the current
 
 | Decision | Cost | Requires | Effect |
 |---|---|---|---|
-| **Establish the Astartes Project** | 100 PP | ≥ 25 factories, ≥ 3 research slots | sets `sm_project_founded` (reveals tech tab); research bonus for Gene-Seed Sequencing; +5 gene-seed |
+| **Establish the Astartes Project** | 100 PP | nothing: any nation can start it | sets `sm_project_founded` (reveals tech tab); research bonus for Gene-Seed Sequencing; +5 gene-seed |
 | **Requisition a Gene-Forge** *(state-targeted, max 3)* | 50 PP + 3 civ. factories for 120 days | core state, infrastructure ≥ 5; Gene-Seed Sequencing | state becomes a Gene-Forge (flag + dynamic modifier) |
 | **Harvest Gene-Seed** *(repeatable, 60-day cooldown)* | 25 PP | ≥ 1 Gene-Forge | +2 gene-seed, +2 per Gene-Forge |
-| **Recover Progenoids** *(repeatable, 90-day cooldown)* | — | at war; ≥ 1 Astartes company fielded | +3 gene-seed (×2 with Progenoid Glands, +1 with an Apothecarion) |
+| **Recover Progenoids** *(repeatable, 90-day cooldown)* | — | at war; Chapter founded | +3 gene-seed (×2 with Progenoid Glands, +1 if a division template has an Apothecarion) |
 | **Aspirant Trials** *(repeatable, 120-day cooldown)* | 10k manpower | project founded | −10% Astartes training time for 120 days |
 
 ### 2. Chapter Founding (visible after Ossmodula)
@@ -198,21 +200,21 @@ There are five decision categories. The category header always shows the current
 | Decision | Cost | Requires | Effect |
 |---|---|---|---|
 | **Choose Gene-Seed Lineage** *(9 options, pick one; see table below)* | 75 PP | Ossmodula | permanent lineage spirit; unlocks that lineage's flaw mission |
-| **Found the First Chapter** | 20 gene-seed, 150 PP, 5k manpower | Black Carapace, a lineage, Mk II | grants the Tactical Squad and Chaplaincy techs; +10 special-forces cap (one battalion per company); creates a "1st Chapter" division template |
+| **Found the First Chapter** | 20 gene-seed, 150 PP, 5k manpower | Black Carapace, a lineage, Mk II | grants the Tactical Squad and Chaplaincy techs; +10 to the special-forces minimum (`special_forces_min`; one battalion per company); creates a "1st Company" division template |
 | **Appoint a Chapter Master** | 50 PP | Chapter founded | creates a field marshal with Astartes traits |
 | **Ordain a Captain / Chaplain / Librarian** *(max 3 each)* | 25 PP | Chapter founded | creates a corps commander with a matching trait |
-| **Second Founding** *(repeatable, max 3)* | 40 gene-seed, 200 PP | 1942+, previous Chapter founded | +10 special-forces cap; successor Chapter spirit |
+| **Second Founding** *(repeatable, max 3)* | 40 gene-seed, 200 PP | 1942+, previous Chapter founded | +10 special-forces minimum; successor Chapter spirit |
 | **Grant a Successor Chapter** *(targeted at a subject or faction member)* | 30 gene-seed, 100 PP | Second Founding done | target gets `sm_project_founded`, a research bonus for Black Carapace and +10 gene-seed |
 
 #### Gene-seed lineages
 
 | Lineage | Bonus | Flaw (mechanism) |
 |---|---|---|
-| **Ultramarines** | +org, +planning, −10% Astartes decision costs | "Codex Purity": no flaw, but the smallest combat bonuses |
+| **Ultramarines** | +planning speed, +org; small power armour defence and soft-attack bonus | "Codex Purity": no flaw, but the smallest combat bonuses |
 | **Dark Angels** | +defence; cheaper Terminators (Deathwing) and Rhinos (Ravenwing) | *Hunt for the Fallen*: recurring mission |
 | **Space Wolves** | +attack in snow and winter, +soft attack | *Curse of the Wulfen*: recurring mission |
 | **Blood Angels** | +breakthrough; cheaper Assault Squads | *Red Thirst*: recurring mission → *Black Rage* |
-| **Imperial Fists** | +entrenchment; +fort construction speed nationwide | Betcher's Gland and Mucranoid have no effect (permanent) |
+| **Imperial Fists** | +power armour defence; +dig-in speed and fort construction speed nationwide | No working Betcher's Gland: −10% power armour piercing, which cancels that organ (permanent) |
 | **White Scars** | +speed; Lightning Strike doctrine 50% cheaper | −defence for Astartes battalions |
 | **Raven Guard** | +recon, +night attack, out-of-supply grace | *Degraded Stock*: −25% gene-seed from all sources |
 | **Salamanders** | flamer and melta techs twice as strong; +reliability | slower Chapter growth: Second Founding costs +50% |
@@ -229,12 +231,14 @@ There are five decision categories. The category header always shows the current
 
 ### 4. Crusade (operations; visible after Chapter founded)
 
+Each operation's cooldown is shared across all target states.
+
 | Decision | Cost | Requires | Effect |
 |---|---|---|---|
 | **Declare a Crusade** *(targeted at a country)* | 100 PP | different ideology from the target; war support ≥ 50% | wargoal against the target; +war support |
-| **Drop Pod Assault** *(targeted at an enemy state; 60-day cooldown)* | 5 gene-seed, 30 command power | Drop Pods | damages forts and AA in the state; +attack into the state for 14 days |
-| **Lance Strike** *(targeted at an enemy state)* | 50 command power | Strike Cruiser | damages one building type in the state |
-| **Orbital Bombardment** *(targeted at an enemy state; 180-day cooldown)* | 100 command power | Battle Barge | heavy damage to factories, infrastructure and forts |
+| **Drop Pod Assault** *(targeted at an enemy state; 60-day cooldown)* | 5 gene-seed, 30 command power | Drop Pods | damages forts and AA in the state; enemy divisions there lose 30% organisation; +5% attack and breakthrough for 14 days |
+| **Lance Strike** *(targeted at an enemy state; 30-day cooldown)* | 50 command power | Strike Cruiser | damages arms factories and infrastructure in the state |
+| **Orbital Bombardment** *(targeted at an enemy state; 180-day cooldown)* | 100 command power | Battle Barge | heavy damage to factories, infrastructure, air bases and forts; enemy divisions there lose 50% organisation and 15% strength |
 | **Purge the Heretic** *(targeted at an occupied state)* | 25 PP | Chapter founded | −resistance, +compliance growth |
 | **Exterminatus** *(stretch, once per game)* | 50 gene-seed, 200 PP | Cyclonic Torpedoes | devastates a state; large world-tension and war-support penalties |
 
@@ -258,7 +262,7 @@ The late tech *Gene-Seed Purification* halves these penalties.
 ## Balance guardrails
 
 - **Special-forces cap.** Astartes battalions use `special_forces = yes`, so they count
-  against the vanilla cap. Founding decisions add +10 per Chapter. The cap is shared with
+  against the vanilla cap. Each founding decision raises the special-forces minimum by 10. The cap is shared with
   vanilla marines, mountaineers and paratroopers (see open question 4).
 - **Cost profile.** About 100 manpower per battalion, but power armour costs roughly
   8–10× an infantry equipment set. The real brake is equipment, not manpower.
@@ -273,50 +277,64 @@ The late tech *Gene-Seed Purification* halves these penalties.
 
 ---
 
-## Minimum viable version (first playable)
+## Minimum viable version (built as v0.1.0)
 
-Build this first, then grow it:
+This is what v0.1.0 contains. It also includes the whole orbital layer, which wasn't in the
+original minimum plan:
 
-- **Techs (~16):** the 5 Gene-Seed spine techs, 4 side organs, power armour Mk II–IV,
-  Boltgun, Heavy Bolter, and one Codex path.
-- **Decisions (~10):** Establish Project, Gene-Forge, Harvest, Recover Progenoids,
-  Choose Lineage (3 lineages to start: Ultramarines, Blood Angels, Imperial Fists), Found
-  the First Chapter, one flaw mission, and Drop Pod Assault.
+- **Techs (21 in the tab, 1 granted by decision):** the 5 Gene-Seed spine techs, 5 side
+  organs (Biscopea, Haemastamen, Occulobe, Betcher's Gland, Progenoid Glands), power
+  armour Mk II–IV, Boltgun, Heavy Bolter, Drop Pods, Strike Cruiser, Battle Barge, and the
+  Codex Adherent path. The decision-only tech is Chapter Founding, which unlocks Tactical
+  Squads.
+- **Decisions (13):** Establish Project, Gene-Forge, Harvest, Recover Progenoids, Choose
+  Lineage (Ultramarines, Blood Angels, Imperial Fists), Found the First Chapter, the Red
+  Thirst mission and Sate the Red Thirst, Drop Pod Assault, Lance Strike and Orbital
+  Bombardment.
 - **Supporting files:** 3 subunits (Tactical Squad, Neophyte Scouts, Apothecarion), one
-  equipment line, the Astartes tech tab, decision categories, localisation and placeholder
-  icons.
+  equipment line, the Astartes tech tab, decision categories, localisation and generated
+  placeholder icons.
 
 ---
 
 ## Implementation notes
 
 - Prefix every key with `sm_` to avoid clashes with other mods.
-- Planned files:
+- Files:
+  - `common/technology_tags/sm_astartes_tags.txt` (new folder and categories)
   - `common/technologies/sm_astartes.txt`
-  - `common/technology_tags/sm_astartes.txt` (new folder and categories)
-  - `common/decisions/sm_*.txt` and `common/decisions/categories/sm_categories.txt`
+  - `common/decisions/sm_astartes_decisions.txt` and `common/decisions/categories/sm_astartes_categories.txt`
   - `common/units/sm_astartes.txt` and `common/units/equipment/sm_power_armour.txt`
-  - `common/ideas/sm_spirits.txt` (spirits applied *by* decisions)
-  - `common/dynamic_modifiers/sm_modifiers.txt` (Gene-Forge state modifier)
-  - `common/scripted_effects/`, `common/scripted_localisation/` (gene-seed helpers and display)
-  - `localisation/english/sm_*_l_english.yml`
-  - `interface/*.gfx` and `gfx/` for icons
+  - `common/ideas/sm_astartes_spirits.txt` (spirits applied *by* decisions)
+  - `common/dynamic_modifiers/sm_astartes_modifiers.txt` (Gene-Forge and Drop Pod modifiers)
+  - `localisation/english/sm_astartes_l_english.yml`
+  - `interface/sm_astartes_techtree.gui` (tech tab window), `interface/sm_astartes.gfx` and
+    `gfx/interface/sm_astartes/` (placeholder icons)
+  - `tools/check_mod.py` (static checks) and `tools/make_placeholder_icons.py`
 - Target tech modifiers at subunit names (`sm_tactical_squad = { … }`). That avoids
-  overriding the shared `common/unit_tags.txt` to add a new unit category.
-- **The only vanilla override** is the tech-view GUI, which needs it to add the Astartes
-  tab. Everything else is additive.
+  adding a new unit category to vanilla's unit tags.
+- Lineage bonuses use `equipment_bonus` on the `sm_power_armour` archetype, so they buff
+  only Astartes battalions.
+- **No vanilla file is overridden.** The tech folder's window lives in its own
+  `interface/sm_astartes_techtree.gui`. If the game turns out to need it inside vanilla
+  `countrytechtreeview.gui`, that becomes the mod's only override.
 
 ---
+
+## Decisions so far
+
+- **Who can use it:** any nation, with no size requirement.
+- **New units:** yes. Space Marines are new battalions with their own power armour
+  equipment.
+- **Tone:** keep the void and orbital layer.
+- **Cap (default, open to change):** Astartes share the vanilla special-forces cap, and each
+  Chapter raises its minimum by 10.
 
 ## Open questions
 
 1. **Names.** Straight 40k names (Ultramarines, Black Carapace, Thunderhawk…) or
-   "inspired-by" names? This matters if it goes on the Steam Workshop.
-2. **Who can use it.** Any nation, majors only, or specific countries?
-3. **New units.** Are new battalions and equipment in scope? Recommended: yes, a minimal
-   set. Otherwise techs can only buff vanilla special forces.
-4. **Cap.** Share the vanilla special-forces cap, or find a separate limiter?
-5. **Tone.** Keep the void and orbital layer (Drop Pods, Battle Barge, Exterminatus), or
-   is it too silly for WW2?
-6. **Target version and DLC.** Which game version, and are No Step Back, By Blood Alone or
-   Götterdämmerung assumed?
+   "inspired-by" names? This matters if it goes on the Steam Workshop. v0.1.0 uses the
+   straight names.
+2. **Target version and DLC.** Which game version, and are No Step Back, By Blood Alone or
+   Götterdämmerung assumed? v0.1.0 declares `supported_version="1.*"` and uses no DLC
+   features.

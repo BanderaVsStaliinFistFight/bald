@@ -1,0 +1,100 @@
+### National spirits applied by Adeptus Astartes decisions.
+### Lineage bonuses mostly use equipment_bonus on the power armour archetype, so they buff
+### only Astartes battalions and leave the rest of the army alone.
+
+ideas = {
+	country = {
+
+		########################################
+		# Gene-seed lineages (one per country, permanent)
+		########################################
+
+		# Codex Purity: no flaw, the smallest bonuses.
+		sm_lineage_ultramarines = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			modifier = {
+				planning_speed = 0.1
+				army_org_factor = 0.03
+			}
+
+			equipment_bonus = {
+				sm_power_armour = {
+					defense = 0.05
+					soft_attack = 0.05
+					instant = yes
+				}
+			}
+		}
+
+		# Flaw: the Red Thirst mission (see sm_astartes_decisions.txt).
+		sm_lineage_blood_angels = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			equipment_bonus = {
+				sm_power_armour = {
+					breakthrough = 0.15
+					soft_attack = 0.05
+					instant = yes
+				}
+			}
+		}
+
+		# Flaw: missing Betcher's Gland. The -10% piercing cancels that tech's +10%.
+		sm_lineage_imperial_fists = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			modifier = {
+				production_speed_bunker_factor = 0.2
+				dig_in_speed_factor = 0.1
+			}
+
+			equipment_bonus = {
+				sm_power_armour = {
+					defense = 0.15
+					ap_attack = -0.1
+					instant = yes
+				}
+			}
+		}
+
+		########################################
+		# Chapter
+		########################################
+
+		# Each founded Chapter raises the special-forces floor by 10 battalions.
+		sm_adeptus_astartes_chapter = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			modifier = {
+				special_forces_min = 10
+			}
+		}
+
+		########################################
+		# Flaw outcomes (timed)
+		########################################
+
+		sm_black_rage = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			equipment_bonus = {
+				sm_power_armour = {
+					breakthrough = 0.2
+					defense = -0.2
+					instant = yes
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,422 @@
+### Adeptus Astartes technologies.
+### Every tech sits in the Astartes folder in one tree rooted at Gene-Seed Sequencing.
+### The whole tree stays hidden until the "Establish the Astartes Project" decision
+### sets sm_project_founded (allow_branch on the root).
+###
+### Positions are in tech-grid slots relative to the root's grid, two rows per tier.
+### Unit modifiers target the Astartes sub-units by name, so vanilla unit_tags stays untouched.
+
+technologies = {
+
+	########################################
+	# Gene-Seed: the spine
+	########################################
+
+	sm_geneseed_sequencing = {
+		allow_branch = { has_country_flag = sm_project_founded }
+
+		research_cost = 1.5
+		start_year = 1936
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 9 y = 0 }
+		}
+
+		path = { leads_to_tech = sm_secondary_heart research_cost_coeff = 1 }
+		path = { leads_to_tech = sm_mk2_crusade_armour research_cost_coeff = 1 }
+		path = { leads_to_tech = sm_boltgun research_cost_coeff = 1 }
+
+		categories = { sm_geneseed_tech }
+
+		ai_will_do = { factor = 2 }
+	}
+
+	sm_secondary_heart = {
+		sm_tactical_squad = { default_morale = 0.1 }
+
+		research_cost = 1.5
+		start_year = 1936
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 3 y = 2 }
+		}
+
+		path = { leads_to_tech = sm_ossmodula research_cost_coeff = 1 }
+		path = { leads_to_tech = sm_biscopea research_cost_coeff = 1 }
+		path = { leads_to_tech = sm_haemastamen research_cost_coeff = 1 }
+
+		categories = { sm_geneseed_tech }
+
+		ai_will_do = { factor = 2 }
+	}
+
+	sm_ossmodula = {
+		enable_subunits = { sm_neophyte_scouts }
+		sm_tactical_squad = { defense = 0.05 }
+
+		research_cost = 1.5
+		start_year = 1937
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 3 y = 4 }
+		}
+
+		path = { leads_to_tech = sm_larramans_organ research_cost_coeff = 1 }
+
+		categories = { sm_geneseed_tech }
+
+		ai_will_do = { factor = 2 }
+	}
+
+	sm_larramans_organ = {
+		enable_subunits = { sm_apothecarion }
+		sm_tactical_squad = { casualty_trickleback = 0.05 }
+
+		research_cost = 1.5
+		start_year = 1938
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 3 y = 6 }
+		}
+
+		path = { leads_to_tech = sm_black_carapace research_cost_coeff = 1 }
+		path = { leads_to_tech = sm_occulobe research_cost_coeff = 1 }
+
+		categories = { sm_geneseed_tech }
+
+		ai_will_do = { factor = 2 }
+	}
+
+	sm_black_carapace = {
+		sm_tactical_squad = { max_organisation = 5 }
+
+		research_cost = 2
+		start_year = 1939
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 3 y = 8 }
+		}
+
+		path = { leads_to_tech = sm_betchers_gland research_cost_coeff = 1 }
+		path = { leads_to_tech = sm_progenoid_glands research_cost_coeff = 1 }
+		path = { leads_to_tech = sm_combat_squads research_cost_coeff = 1 }
+
+		categories = { sm_geneseed_tech }
+
+		ai_will_do = { factor = 2 }
+	}
+
+	########################################
+	# Gene-Seed: optional side organs
+	########################################
+
+	sm_biscopea = {
+		sm_tactical_squad = { soft_attack = 0.05 }
+
+		research_cost = 1
+		start_year = 1936
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 0 y = 4 }
+		}
+
+		categories = { sm_geneseed_tech }
+
+		ai_will_do = { factor = 1 }
+	}
+
+	sm_haemastamen = {
+		sm_tactical_squad = { max_organisation = 5 }
+
+		research_cost = 1
+		start_year = 1936
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 6 y = 4 }
+		}
+
+		categories = { sm_geneseed_tech }
+
+		ai_will_do = { factor = 1 }
+	}
+
+	sm_occulobe = {
+		sm_neophyte_scouts = { recon = 0.25 }
+
+		research_cost = 1
+		start_year = 1938
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 0 y = 8 }
+		}
+
+		categories = { sm_geneseed_tech }
+
+		ai_will_do = { factor = 1 }
+	}
+
+	sm_betchers_gland = {
+		sm_tactical_squad = {
+			ap_attack = 0.1
+			hard_attack = 0.05
+		}
+
+		research_cost = 1
+		start_year = 1939
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 0 y = 10 }
+		}
+
+		categories = { sm_geneseed_tech }
+
+		ai_will_do = { factor = 1 }
+	}
+
+	# No direct modifier: doubles the yield of the Recover Progenoids decision.
+	sm_progenoid_glands = {
+		research_cost = 1
+		start_year = 1939
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 3 y = 10 }
+		}
+
+		categories = { sm_geneseed_tech }
+
+		ai_will_do = { factor = 1 }
+	}
+
+	########################################
+	# Wargear: power armour marks
+	########################################
+
+	sm_mk2_crusade_armour = {
+		enable_equipments = { sm_power_armour_1 }
+
+		research_cost = 1.5
+		start_year = 1937
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 12 y = 2 }
+		}
+
+		path = { leads_to_tech = sm_mk3_iron_armour research_cost_coeff = 1 }
+
+		categories = { sm_wargear_tech }
+
+		ai_will_do = { factor = 2 }
+	}
+
+	sm_mk3_iron_armour = {
+		enable_equipments = { sm_power_armour_2 }
+
+		research_cost = 1.5
+		start_year = 1939
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 12 y = 4 }
+		}
+
+		path = { leads_to_tech = sm_mk4_maximus_armour research_cost_coeff = 1 }
+		path = { leads_to_tech = sm_drop_pods research_cost_coeff = 1 }
+
+		categories = { sm_wargear_tech }
+
+		ai_will_do = { factor = 2 }
+	}
+
+	sm_mk4_maximus_armour = {
+		enable_equipments = { sm_power_armour_3 }
+
+		research_cost = 1.5
+		start_year = 1940
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 12 y = 6 }
+		}
+
+		categories = { sm_wargear_tech }
+
+		ai_will_do = { factor = 2 }
+	}
+
+	########################################
+	# Wargear: weapons (buff the battalions, no new equipment)
+	########################################
+
+	sm_boltgun = {
+		sm_tactical_squad = { soft_attack = 0.1 }
+
+		research_cost = 1.5
+		start_year = 1937
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 18 y = 2 }
+		}
+
+		path = { leads_to_tech = sm_heavy_bolter research_cost_coeff = 1 }
+
+		categories = { sm_wargear_tech }
+
+		ai_will_do = { factor = 1 }
+	}
+
+	sm_heavy_bolter = {
+		sm_tactical_squad = {
+			soft_attack = 0.05
+			hard_attack = 0.1
+		}
+
+		research_cost = 1.5
+		start_year = 1938
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 18 y = 4 }
+		}
+
+		categories = { sm_wargear_tech }
+
+		ai_will_do = { factor = 1 }
+	}
+
+	########################################
+	# Void assets: unlock the orbital decisions only
+	########################################
+
+	sm_drop_pods = {
+		research_cost = 2
+		start_year = 1940
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 15 y = 6 }
+		}
+
+		path = { leads_to_tech = sm_strike_cruiser research_cost_coeff = 1 }
+
+		categories = { sm_void_tech }
+
+		ai_will_do = { factor = 1 }
+	}
+
+	sm_strike_cruiser = {
+		research_cost = 2.5
+		start_year = 1942
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 15 y = 8 }
+		}
+
+		path = { leads_to_tech = sm_battle_barge research_cost_coeff = 1 }
+
+		categories = { sm_void_tech }
+
+		ai_will_do = { factor = 1 }
+	}
+
+	sm_battle_barge = {
+		research_cost = 3
+		start_year = 1944
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 15 y = 10 }
+		}
+
+		categories = { sm_void_tech }
+
+		ai_will_do = { factor = 1 }
+	}
+
+	########################################
+	# Codex Doctrine: Codex Adherent path
+	########################################
+
+	sm_combat_squads = {
+		sm_tactical_squad = { max_organisation = 5 }
+
+		research_cost = 1.5
+		start_year = 1939
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 9 y = 10 }
+		}
+
+		path = { leads_to_tech = sm_battle_company_doctrine research_cost_coeff = 1 }
+
+		categories = { sm_codex_tech }
+
+		ai_will_do = { factor = 1 }
+	}
+
+	sm_battle_company_doctrine = {
+		planning_speed = 0.05
+
+		research_cost = 1.5
+		start_year = 1940
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 9 y = 12 }
+		}
+
+		path = { leads_to_tech = sm_chapter_masters_council research_cost_coeff = 1 }
+
+		categories = { sm_codex_tech }
+
+		ai_will_do = { factor = 1 }
+	}
+
+	sm_chapter_masters_council = {
+		command_power_gain_mult = 0.1
+
+		research_cost = 1.5
+		start_year = 1941
+
+		folder = {
+			name = sm_astartes_folder
+			position = { x = 9 y = 14 }
+		}
+
+		categories = { sm_codex_tech }
+
+		ai_will_do = { factor = 1 }
+	}
+
+	########################################
+	# Granted by decision only
+	########################################
+
+	# Unlocks Tactical Squads. Not researchable and not shown in any folder:
+	# only the "Found the First Chapter" decision grants it, via set_technology.
+	sm_chapter_founding = {
+		allow = { always = no }
+
+		enable_subunits = { sm_tactical_squad }
+
+		research_cost = 1
+		start_year = 1939
+
+		categories = { sm_codex_tech }
+
+		ai_will_do = { factor = 0 }
+	}
+}

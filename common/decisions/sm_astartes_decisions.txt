@@ -1,0 +1,536 @@
+### Adeptus Astartes decisions.
+###
+### Gene-seed is the currency. It lives in the country variable sm_geneseed.
+### Sources: Establish the Project, Harvest Gene-Seed, Recover Progenoids.
+### Sinks: Found the First Chapter, Drop Pod Assault, Sate the Red Thirst.
+### Decisions that cost gene-seed use custom_cost_trigger, pay any political or command
+### power in complete_effect, and change the variable inside hidden_effect next to a
+### readable custom_effect_tooltip.
+
+########################################
+# 1. The Astartes Project
+########################################
+
+sm_astartes_project_category = {
+
+	sm_establish_astartes_project = {
+		icon = sm_geneseed
+
+		visible = {
+			NOT = { has_country_flag = sm_project_founded }
+		}
+
+		cost = 100
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = sm_project_founded
+			custom_effect_tooltip = sm_reveals_astartes_tab_tt
+			add_tech_bonus = {
+				name = sm_establish_astartes_project
+				bonus = 0.5
+				uses = 1
+				technology = sm_geneseed_sequencing
+			}
+			custom_effect_tooltip = sm_gain_5_geneseed_tt
+			hidden_effect = {
+				add_to_variable = { sm_geneseed = 5 }
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 5
+				is_major = yes
+				amount_research_slots > 3
+			}
+		}
+	}
+
+	# State-targeted. Costs 3 civilian factories for 120 days, then the state becomes a Gene-Forge.
+	sm_requisition_gene_forge = {
+		icon = sm_geneseed
+
+		state_target = yes
+		target_array = owned_states
+		on_map_mode = map_and_decisions_view
+
+		target_root_trigger = {
+			has_tech = sm_geneseed_sequencing
+			check_variable = { sm_gene_forges_planned < 3 }
+		}
+
+		target_trigger = {
+			FROM = {
+				is_core_of = ROOT
+				is_controlled_by = ROOT
+				infrastructure > 4
+				NOT = { has_state_flag = sm_gene_forge }
+			}
+		}
+
+		cancel_trigger = {
+			FROM = {
+				NOT = { is_controlled_by = ROOT }
+			}
+		}
+
+		cost = 50
+		days_remove = 120
+
+		modifier = {
+			civilian_factory_use = 3
+		}
+
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = { sm_gene_forges_planned = 1 }
+			}
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_flag = sm_gene_forge
+				add_dynamic_modifier = { modifier = sm_gene_forge }
+			}
+			custom_effect_tooltip = sm_gene_forge_built_tt
+			hidden_effect = {
+				add_to_variable = { sm_gene_forges = 1 }
+			}
+		}
+
+		cancel_effect = {
+			hidden_effect = {
+				subtract_from_variable = { sm_gene_forges_planned = 1 }
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	sm_harvest_geneseed = {
+		icon = sm_geneseed
+
+		visible = {
+			has_tech = sm_geneseed_sequencing
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = sm_has_gene_forge_tt
+				check_variable = { sm_gene_forges > 0 }
+			}
+		}
+
+		cost = 25
+		days_re_enable = 60
+
+		complete_effect = {
+			custom_effect_tooltip = sm_harvest_geneseed_tt
+			hidden_effect = {
+				add_to_variable = { sm_geneseed = 2 }
+				add_to_variable = {
+					sm_geneseed = {
+						value = sm_gene_forges
+						multiply = 2
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	sm_recover_progenoids = {
+		icon = sm_geneseed
+
+		visible = {
+			has_country_flag = sm_chapter_founded
+		}
+
+		available = {
+			has_war = yes
+		}
+
+		days_re_enable = 90
+
+		complete_effect = {
+			custom_effect_tooltip = sm_recover_progenoids_tt
+			hidden_effect = {
+				add_to_variable = { sm_geneseed = 3 }
+				if = {
+					limit = { has_tech = sm_progenoid_glands }
+					add_to_variable = { sm_geneseed = 3 }
+				}
+				if = {
+					limit = { has_template_containing_unit = sm_apothecarion }
+					add_to_variable = { sm_geneseed = 1 }
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}
+
+########################################
+# 2. Chapter Founding
+########################################
+
+sm_astartes_chapter_category = {
+
+	sm_choose_ultramarines = {
+		icon = sm_chapter
+
+		visible = {
+			has_tech = sm_ossmodula
+			NOT = { has_country_flag = sm_lineage_chosen }
+		}
+
+		cost = 75
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = sm_lineage_chosen
+			add_ideas = sm_lineage_ultramarines
+		}
+
+		ai_will_do = {
+			factor = 2
+		}
+	}
+
+	sm_choose_blood_angels = {
+		icon = sm_chapter
+
+		visible = {
+			has_tech = sm_ossmodula
+			NOT = { has_country_flag = sm_lineage_chosen }
+		}
+
+		cost = 75
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = sm_lineage_chosen
+			add_ideas = sm_lineage_blood_angels
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	sm_choose_imperial_fists = {
+		icon = sm_chapter
+
+		visible = {
+			has_tech = sm_ossmodula
+			NOT = { has_country_flag = sm_lineage_chosen }
+		}
+
+		cost = 75
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = sm_lineage_chosen
+			add_ideas = sm_lineage_imperial_fists
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	sm_found_first_chapter = {
+		icon = sm_chapter
+
+		visible = {
+			NOT = { has_country_flag = sm_chapter_founded }
+		}
+
+		available = {
+			has_tech = sm_black_carapace
+			has_tech = sm_mk2_crusade_armour
+			custom_trigger_tooltip = {
+				tooltip = sm_has_lineage_tt
+				has_country_flag = sm_lineage_chosen
+			}
+			has_manpower > 4999
+		}
+
+		custom_cost_trigger = {
+			has_political_power > 149
+			check_variable = { sm_geneseed > 19 }
+		}
+		custom_cost_text = sm_cost_150pp_20gs
+		ai_hint_pp_cost = 150
+
+		fire_only_once = yes
+
+		complete_effect = {
+			add_political_power = -150
+			add_manpower = -5000
+			custom_effect_tooltip = sm_spend_20_geneseed_tt
+			hidden_effect = {
+				subtract_from_variable = { sm_geneseed = 20 }
+			}
+			set_country_flag = sm_chapter_founded
+			set_technology = {
+				sm_chapter_founding = 1
+				popup = no
+			}
+			add_ideas = sm_adeptus_astartes_chapter
+			division_template = {
+				name = "1st Company"
+				regiments = {
+					sm_tactical_squad = { x = 0 y = 0 }
+					sm_tactical_squad = { x = 0 y = 1 }
+					sm_tactical_squad = { x = 0 y = 2 }
+				}
+				support = {
+					sm_neophyte_scouts = { x = 0 y = 0 }
+					sm_apothecarion = { x = 0 y = 1 }
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 5
+		}
+	}
+
+	########################################
+	# Gene-seed flaw: Blood Angels
+	########################################
+
+	# Starts on its own while a Blood Angels Chapter is at war. Pay it off with
+	# "Sate the Red Thirst" within 60 days, or the Black Rage takes the Chapter.
+	sm_red_thirst_mission = {
+		icon = sm_chapter
+
+		activation = {
+			has_idea = sm_lineage_blood_angels
+			has_country_flag = sm_chapter_founded
+			has_war = yes
+			NOT = { has_country_flag = sm_red_thirst_cooldown }
+		}
+
+		available = {
+			has_country_flag = sm_red_thirst_sated
+		}
+
+		days_mission_timeout = 60
+		fire_only_once = no
+
+		complete_effect = {
+			clr_country_flag = sm_red_thirst_sated
+			set_country_flag = { flag = sm_red_thirst_cooldown days = 180 value = 1 }
+		}
+
+		timeout_effect = {
+			add_timed_idea = { idea = sm_black_rage days = 120 }
+			set_country_flag = { flag = sm_red_thirst_cooldown days = 180 value = 1 }
+		}
+	}
+
+	sm_sate_red_thirst = {
+		icon = sm_chapter
+
+		visible = {
+			has_active_mission = sm_red_thirst_mission
+			NOT = { has_country_flag = sm_red_thirst_sated }
+		}
+
+		custom_cost_trigger = {
+			has_political_power > 49
+			check_variable = { sm_geneseed > 4 }
+		}
+		custom_cost_text = sm_cost_50pp_5gs
+		ai_hint_pp_cost = 50
+
+		complete_effect = {
+			add_political_power = -50
+			custom_effect_tooltip = sm_spend_5_geneseed_tt
+			hidden_effect = {
+				subtract_from_variable = { sm_geneseed = 5 }
+			}
+			set_country_flag = sm_red_thirst_sated
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+	}
+}
+
+########################################
+# 3. Crusade: orbital operations
+########################################
+# Cooldowns are country flags, so each operation has one shared cooldown
+# instead of one per target state.
+
+sm_astartes_crusade_category = {
+
+	sm_drop_pod_assault = {
+		icon = sm_orbital
+
+		state_target = yes
+		on_map_mode = map_and_decisions_view
+
+		target_root_trigger = {
+			has_tech = sm_drop_pods
+			has_war = yes
+		}
+
+		target_trigger = {
+			FROM = {
+				controller = { has_war_with = ROOT }
+			}
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = sm_drop_pod_ready_tt
+				NOT = { has_country_flag = sm_drop_pod_cooldown }
+			}
+		}
+
+		custom_cost_trigger = {
+			command_power > 29
+			check_variable = { sm_geneseed > 4 }
+		}
+		custom_cost_text = sm_cost_30cp_5gs
+
+		complete_effect = {
+			add_command_power = -30
+			custom_effect_tooltip = sm_spend_5_geneseed_tt
+			hidden_effect = {
+				subtract_from_variable = { sm_geneseed = 5 }
+			}
+			set_country_flag = { flag = sm_drop_pod_cooldown days = 60 value = 1 }
+			FROM = {
+				damage_building = { type = bunker damage = 2 }
+				damage_building = { type = anti_air_building damage = 2 }
+			}
+			custom_effect_tooltip = sm_drop_pod_units_tt
+			damage_units = {
+				state = FROM
+				limit = { has_war_with = ROOT }
+				org_damage = 0.3
+				ratio = yes
+				army = yes
+			}
+			add_dynamic_modifier = { modifier = sm_drop_pod_shock days = 14 }
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	sm_lance_strike = {
+		icon = sm_orbital
+
+		state_target = yes
+		on_map_mode = map_and_decisions_view
+
+		target_root_trigger = {
+			has_tech = sm_strike_cruiser
+			has_war = yes
+		}
+
+		target_trigger = {
+			FROM = {
+				controller = { has_war_with = ROOT }
+			}
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = sm_lance_strike_ready_tt
+				NOT = { has_country_flag = sm_lance_strike_cooldown }
+			}
+		}
+
+		custom_cost_trigger = {
+			command_power > 49
+		}
+		custom_cost_text = sm_cost_50cp
+
+		complete_effect = {
+			add_command_power = -50
+			set_country_flag = { flag = sm_lance_strike_cooldown days = 30 value = 1 }
+			FROM = {
+				damage_building = { type = arms_factory damage = 2 }
+				damage_building = { type = infrastructure damage = 2 }
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	sm_orbital_bombardment = {
+		icon = sm_orbital
+
+		state_target = yes
+		on_map_mode = map_and_decisions_view
+
+		target_root_trigger = {
+			has_tech = sm_battle_barge
+			has_war = yes
+		}
+
+		target_trigger = {
+			FROM = {
+				controller = { has_war_with = ROOT }
+			}
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = sm_orbital_bombardment_ready_tt
+				NOT = { has_country_flag = sm_orbital_bombardment_cooldown }
+			}
+		}
+
+		custom_cost_trigger = {
+			command_power > 99
+		}
+		custom_cost_text = sm_cost_100cp
+
+		complete_effect = {
+			add_command_power = -100
+			set_country_flag = { flag = sm_orbital_bombardment_cooldown days = 180 value = 1 }
+			FROM = {
+				damage_building = { type = industrial_complex damage = 3 }
+				damage_building = { type = arms_factory damage = 3 }
+				damage_building = { type = infrastructure damage = 3 }
+				damage_building = { type = air_base damage = 3 }
+				damage_building = { type = bunker damage = 5 }
+			}
+			custom_effect_tooltip = sm_orbital_bombardment_units_tt
+			damage_units = {
+				state = FROM
+				limit = { has_war_with = ROOT }
+				org_damage = 0.5
+				str_damage = 0.15
+				ratio = yes
+				army = yes
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

@@ -1,0 +1,117 @@
+### Adeptus Astartes sub-units.
+### One Tactical Squad battalion stands for one Codex company of 100 Battle-Brothers:
+### tiny manpower, very expensive equipment, capped by the special-forces limit.
+### Combat stats come from the power armour equipment (see equipment/sm_power_armour.txt).
+
+sub_units = {
+
+	sm_tactical_squad = {
+		abbreviation = "TAC"
+		sprite = infantry
+		map_icon_category = infantry
+
+		priority = 600
+		ai_priority = 200
+		active = no
+
+		type = { infantry }
+		group = infantry
+		categories = {
+			category_front_line
+			category_light_infantry
+			category_all_infantry
+			category_army
+		}
+
+		combat_width = 2
+
+		#Size Definitions
+		max_strength = 30
+		max_organisation = 70
+		default_morale = 0.4
+		manpower = 100
+
+		#Misc Abilities
+		training_time = 180
+		suppression = 2
+		weight = 0.5
+		supply_consumption = 0.08
+		special_forces = yes
+
+		need = {
+			sm_power_armour = 100
+		}
+	}
+
+	sm_neophyte_scouts = {
+		abbreviation = "SCT"
+		sprite = infantry
+		map_icon_category = infantry
+
+		priority = 1000
+		ai_priority = 50
+		active = no
+
+		type = { support }
+		group = support
+		categories = {
+			category_support_battalions
+			category_army
+		}
+
+		combat_width = 0
+
+		#Size Definitions
+		max_strength = 10
+		max_organisation = 30
+		default_morale = 0.3
+		manpower = 50
+
+		#Misc Abilities
+		training_time = 120
+		weight = 0.1
+		supply_consumption = 0.02
+		recon = 2
+
+		# Neophytes fight in scout carapace, not power armour, so they don't need Mk II.
+		need = {
+			infantry_equipment = 50
+		}
+	}
+
+	sm_apothecarion = {
+		abbreviation = "APO"
+		sprite = infantry
+		map_icon_category = infantry
+
+		priority = 1000
+		ai_priority = 50
+		active = no
+
+		type = { support }
+		group = support
+		categories = {
+			category_support_battalions
+			category_army
+		}
+
+		combat_width = 0
+
+		#Size Definitions
+		max_strength = 5
+		max_organisation = 20
+		default_morale = 0.3
+		manpower = 20
+
+		#Misc Abilities
+		training_time = 120
+		weight = 0.1
+		supply_consumption = 0.02
+		casualty_trickleback = 0.3
+		experience_loss_factor = -0.3
+
+		need = {
+			sm_power_armour = 10
+		}
+	}
+}

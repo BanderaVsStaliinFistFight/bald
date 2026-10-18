@@ -1,0 +1,170 @@
+﻿l_english:
+ ### Tech folder and categories
+ sm_astartes_folder:0 "Adeptus Astartes"
+ sm_astartes_folder_name:0 "Adeptus Astartes"
+ sm_astartes_folder_desc:0 "Gene-seed, power armour, the void and the Codex: everything a Chapter of Space Marines needs."
+ sm_geneseed_tech:0 "Gene-Seed"
+ sm_wargear_tech:0 "Astartes Wargear"
+ sm_void_tech:0 "Void Assets"
+ sm_codex_tech:0 "Codex Doctrine"
+
+ ### Technologies: Gene-Seed spine
+ sm_geneseed_sequencing:0 "Gene-Seed Sequencing"
+ sm_geneseed_sequencing_desc:0 "Map the progenoid gene-seed well enough to grow the first implants.\n\nUnlocks the §YRequisition a Gene-Forge§! and §YHarvest Gene-Seed§! decisions."
+ sm_secondary_heart:0 "Secondary Heart"
+ sm_secondary_heart_desc:0 "The Maintainer: a second heart that keeps a Battle-Brother fighting when the first one fails."
+ sm_ossmodula:0 "Ossmodula"
+ sm_ossmodula_desc:0 "The Ironheart organ hardens and fuses the skeleton.\n\nUnlocks §YNeophyte Scouts§! and the gene-seed lineage decisions."
+ sm_larramans_organ:0 "Larraman's Organ"
+ sm_larramans_organ_desc:0 "The Healer: Larraman cells seal wounds in seconds, so far more of the wounded return to the line.\n\nUnlocks the §YApothecarion§!."
+ sm_black_carapace:0 "Black Carapace"
+ sm_black_carapace_desc:0 "The final implant lets a Battle-Brother interface with power armour.\n\nRequired to §YFound the First Chapter§!."
+
+ ### Technologies: side organs
+ sm_biscopea:0 "Biscopea"
+ sm_biscopea_desc:0 "The Forge of Strength drives muscle growth far past human limits."
+ sm_haemastamen:0 "Haemastamen"
+ sm_haemastamen_desc:0 "The Blood Maker enriches the blood to carry more oxygen."
+ sm_occulobe:0 "Occulobe"
+ sm_occulobe_desc:0 "Eyes that see in the dark and pick out the enemy at range."
+ sm_betchers_gland:0 "Betcher's Gland"
+ sm_betchers_gland_desc:0 "The Poison Bite: an acid spit that eats through armour plate."
+ sm_progenoid_glands:0 "Progenoid Glands"
+ sm_progenoid_glands_desc:0 "Every Battle-Brother carries the seed of his successors.\n\nDoubles the gene-seed recovered by §YRecover Progenoids§!."
+
+ ### Technologies: wargear
+ sm_mk2_crusade_armour:0 "Mk II 'Crusade' Power Armour"
+ sm_mk2_crusade_armour_desc:0 "The first standard pattern of power armour. Stockpile it before the Chapter is founded."
+ sm_mk3_iron_armour:0 "Mk III 'Iron' Power Armour"
+ sm_mk3_iron_armour_desc:0 "Heavier plates for boarding actions and siege work, at the cost of speed."
+ sm_mk4_maximus_armour:0 "Mk IV 'Maximus' Power Armour"
+ sm_mk4_maximus_armour_desc:0 "A balanced, reliable pattern that sets the standard for decades."
+ sm_boltgun:0 "Boltgun"
+ sm_boltgun_desc:0 "Mass-reactive bolt shells: the weapon of every Battle-Brother."
+ sm_heavy_bolter:0 "Heavy Bolter"
+ sm_heavy_bolter_desc:0 "Sustained bolt fire that cuts down infantry and light vehicles alike."
+
+ ### Technologies: void assets
+ sm_drop_pods:0 "Drop Pods"
+ sm_drop_pods_desc:0 "Ceramite pods fired from orbit straight onto the enemy.\n\nUnlocks the §YDrop Pod Assault§! decision."
+ sm_strike_cruiser:0 "Strike Cruiser"
+ sm_strike_cruiser_desc:0 "A fast warship built to carry a company and strike targets on the ground.\n\nUnlocks the §YLance Strike§! decision."
+ sm_battle_barge:0 "Battle Barge"
+ sm_battle_barge_desc:0 "The heaviest ship a Chapter fields. Its guns can level a city from orbit.\n\nUnlocks the §YOrbital Bombardment§! decision."
+
+ ### Technologies: Codex doctrine
+ sm_combat_squads:0 "Combat Squads"
+ sm_combat_squads_desc:0 "Squads split into fire teams and regroup without losing cohesion."
+ sm_battle_company_doctrine:0 "Battle Company Doctrine"
+ sm_battle_company_doctrine_desc:0 "Every company follows the same Codex drills, so plans come together faster."
+ sm_chapter_masters_council:0 "Chapter Master's Council"
+ sm_chapter_masters_council_desc:0 "The Chapter's captains advise the high command."
+
+ ### Technologies: granted by decision
+ sm_chapter_founding:0 "Chapter Founding"
+ sm_chapter_founding_desc:0 "Granted by founding the First Chapter. Unlocks §YTactical Squads§!."
+
+ ### Sub-units
+ sm_tactical_squad:0 "Tactical Squad"
+ sm_tactical_squad_desc:0 "One Codex company of 100 Battle-Brothers in power armour. Very little manpower, very expensive equipment, and limited by the special-forces cap."
+ sm_neophyte_scouts:0 "Neophyte Scouts"
+ sm_neophyte_scouts_desc:0 "Partially implanted Neophytes in scout carapace who find the enemy for the Chapter."
+ sm_apothecarion:0 "Apothecarion"
+ sm_apothecarion_desc:0 "Apothecaries save the wounded and recover the fallen's progenoids. Having one in a template also adds gene-seed to Recover Progenoids."
+
+ ### Equipment
+ sm_power_armour:0 "Power Armour"
+ sm_power_armour_desc:0 "Ceramite and adamantium armour that only an implanted Battle-Brother can wear."
+ sm_power_armour_1:0 "Mk II Crusade Armour"
+ sm_power_armour_1_short:0 "Mk II Armour"
+ sm_power_armour_1_desc:0 "The baseline pattern of power armour."
+ sm_power_armour_2:0 "Mk III Iron Armour"
+ sm_power_armour_2_short:0 "Mk III Armour"
+ sm_power_armour_2_desc:0 "Heavier plates: more defence and armour, less speed."
+ sm_power_armour_3:0 "Mk IV Maximus Armour"
+ sm_power_armour_3_short:0 "Mk IV Armour"
+ sm_power_armour_3_desc:0 "A balanced, reliable pattern."
+
+ ### National spirits
+ sm_lineage_ultramarines:0 "Gene-Seed of Guilliman"
+ sm_lineage_ultramarines_desc:0 "Ultramarines lineage. Codex purity: no flaw, but the smallest combat bonuses."
+ sm_lineage_blood_angels:0 "Gene-Seed of Sanguinius"
+ sm_lineage_blood_angels_desc:0 "Blood Angels lineage. Ferocious assault troops, but at war the §RRed Thirst§! must be sated or the §RBlack Rage§! takes hold."
+ sm_lineage_imperial_fists:0 "Gene-Seed of Dorn"
+ sm_lineage_imperial_fists_desc:0 "Imperial Fists lineage. Masters of fortification. They lack a working Betcher's Gland, which cancels that organ's bonus."
+ sm_adeptus_astartes_chapter:0 "Adeptus Astartes Chapter"
+ sm_adeptus_astartes_chapter_desc:0 "A founded Chapter of Space Marines. Raises the special-forces limit so the Chapter's companies have room."
+ sm_black_rage:0 "The Black Rage"
+ sm_black_rage_desc:0 "The Chapter relives the death of its Primarch and charges without regard for its own lives."
+
+ ### Dynamic modifiers
+ sm_gene_forge:0 "Gene-Forge"
+ sm_drop_pod_shock:0 "Drop Pod Shock"
+
+ ### Decision categories
+ sm_astartes_project_category:0 "The Astartes Project"
+ sm_astartes_project_category_desc:0 "Engineer transhuman super-soldiers and field a Chapter of Space Marines.\n\nGene-seed stockpile: §Y[?sm_geneseed|0]§!\nGene-Forges: §Y[?sm_gene_forges|0]§!"
+ sm_astartes_chapter_category:0 "Chapter Founding"
+ sm_astartes_chapter_category_desc:0 "Choose a gene-seed lineage and found the First Chapter.\n\nGene-seed stockpile: §Y[?sm_geneseed|0]§!"
+ sm_astartes_crusade_category:0 "Crusade"
+ sm_astartes_crusade_category_desc:0 "Orbital operations in support of the Chapter.\n\nGene-seed stockpile: §Y[?sm_geneseed|0]§!"
+
+ ### Decisions: the Astartes Project
+ sm_establish_astartes_project:0 "Establish the Astartes Project"
+ sm_establish_astartes_project_desc:0 "Commit the nation's best scientists to the creation of transhuman super-soldiers."
+ sm_requisition_gene_forge:0 "Requisition a Gene-Forge in [FROM.GetName]"
+ sm_requisition_gene_forge_desc:0 "Turn a core state into a Gene-Forge that cultivates gene-seed. Uses 3 civilian factories for 120 days. At most 3 Gene-Forges."
+ sm_harvest_geneseed:0 "Harvest Gene-Seed"
+ sm_harvest_geneseed_desc:0 "Collect the gene-seed grown in the Gene-Forges."
+ sm_recover_progenoids:0 "Recover Progenoids"
+ sm_recover_progenoids_desc:0 "Apothecaries recover the progenoid glands of fallen Battle-Brothers, so their gene-seed lives on."
+
+ ### Decisions: Chapter Founding
+ sm_choose_ultramarines:0 "Lineage: Ultramarines"
+ sm_choose_ultramarines_desc:0 "Build the Chapter on the gene-seed of Roboute Guilliman. Balanced, with no flaw. This choice is permanent."
+ sm_choose_blood_angels:0 "Lineage: Blood Angels"
+ sm_choose_blood_angels_desc:0 "Build the Chapter on the gene-seed of Sanguinius. Strong breakthrough, but cursed with the Red Thirst. This choice is permanent."
+ sm_choose_imperial_fists:0 "Lineage: Imperial Fists"
+ sm_choose_imperial_fists_desc:0 "Build the Chapter on the gene-seed of Rogal Dorn. Strong defence and faster fortification, but no Betcher's Gland. This choice is permanent."
+ sm_found_first_chapter:0 "Found the First Chapter"
+ sm_found_first_chapter_desc:0 "Implant the first Battle-Brothers and raise the First Chapter. Unlocks Tactical Squads and adds a '1st Company' division template."
+ sm_red_thirst_mission:0 "The Red Thirst"
+ sm_red_thirst_mission_desc:0 "War has woken the Red Thirst in the Chapter. Sate it before the timer runs out, or the §RBlack Rage§! takes hold for 120 days."
+ sm_sate_red_thirst:0 "Sate the Red Thirst"
+ sm_sate_red_thirst_desc:0 "Chaplains and Sanguinary Priests hold the Chapter's thirst in check, for now."
+
+ ### Decisions: Crusade
+ sm_drop_pod_assault:0 "Drop Pod Assault on [FROM.GetName]"
+ sm_drop_pod_assault_desc:0 "Fire drop pods from orbit straight onto the enemy's defences."
+ sm_lance_strike:0 "Lance Strike on [FROM.GetName]"
+ sm_lance_strike_desc:0 "A Strike Cruiser's lances hit the state's war industry and roads."
+ sm_orbital_bombardment:0 "Orbital Bombardment of [FROM.GetName]"
+ sm_orbital_bombardment_desc:0 "The Battle Barge opens fire from orbit. Little in the state will survive."
+
+ ### Custom costs
+ sm_cost_150pp_20gs:0 "£pol_power §Y150§! and §Y20§! gene-seed"
+ sm_cost_150pp_20gs_blocked:0 "£pol_power §R150§! and §R20§! gene-seed"
+ sm_cost_50pp_5gs:0 "£pol_power §Y50§! and §Y5§! gene-seed"
+ sm_cost_50pp_5gs_blocked:0 "£pol_power §R50§! and §R5§! gene-seed"
+ sm_cost_30cp_5gs:0 "£command_power §Y30§! and §Y5§! gene-seed"
+ sm_cost_30cp_5gs_blocked:0 "£command_power §R30§! and §R5§! gene-seed"
+ sm_cost_50cp:0 "£command_power §Y50§!"
+ sm_cost_50cp_blocked:0 "£command_power §R50§!"
+ sm_cost_100cp:0 "£command_power §Y100§!"
+ sm_cost_100cp_blocked:0 "£command_power §R100§!"
+
+ ### Custom tooltips
+ sm_reveals_astartes_tab_tt:0 "Reveals the §YAdeptus Astartes§! technology tab."
+ sm_gain_5_geneseed_tt:0 "Gene-seed: §G+5§!"
+ sm_spend_5_geneseed_tt:0 "Gene-seed: §R-5§!"
+ sm_spend_20_geneseed_tt:0 "Gene-seed: §R-20§!"
+ sm_has_gene_forge_tt:0 "Has at least one §YGene-Forge§!"
+ sm_gene_forge_built_tt:0 "The state becomes a §YGene-Forge§!."
+ sm_harvest_geneseed_tt:0 "Gene-seed: §G+2§!, plus §G2§! for each Gene-Forge (currently §Y[?sm_gene_forges|0]§!)"
+ sm_recover_progenoids_tt:0 "Gene-seed: §G+3§!\n§G+3§! more with §YProgenoid Glands§!\n§G+1§! more if a division template has an §YApothecarion§!"
+ sm_has_lineage_tt:0 "Has chosen a gene-seed lineage"
+ sm_drop_pod_ready_tt:0 "No Drop Pod Assault in the last 60 days"
+ sm_drop_pod_units_tt:0 "Enemy divisions in the state lose §R30%§! of their organisation."
+ sm_lance_strike_ready_tt:0 "No Lance Strike in the last 30 days"
+ sm_orbital_bombardment_ready_tt:0 "No Orbital Bombardment in the last 180 days"
+ sm_orbital_bombardment_units_tt:0 "Enemy divisions in the state lose §R50%§! of their organisation and §R15%§! of their strength."
