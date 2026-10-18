@@ -1,7 +1,7 @@
 # Adeptus Astartes — HOI4 Mod Design Ideas
 
-> Status: **v0.1.1**: the minimum viable version below, plus the full orbital layer. The
-> Astartes tech tab is removed for now because it broke the research screen (see README).
+> Status: **v0.1.2**: the minimum viable version below, plus the full orbital layer, with
+> the Astartes tech tab built on the game's research screen layout (see README).
 > See [README.md](README.md). Every number here is still a placeholder to balance later.
 
 ## Pitch
@@ -302,8 +302,8 @@ original minimum plan:
 
 - Prefix every key with `sm_` to avoid clashes with other mods.
 - Files:
-  - `common/technology_tags/sm_astartes_tags.txt` (new folder and categories; removed in
-    v0.1.1 until the tab is rebuilt)
+  - `common/technology_tags/sm_astartes_tags.txt` (new folder and categories)
+  - `interface/countrytechtreeview.gui` (research screen with the Astartes tab; generated)
   - `common/technologies/sm_astartes.txt`
   - `common/decisions/sm_astartes_decisions.txt` and `common/decisions/categories/sm_astartes_categories.txt`
   - `common/units/sm_astartes.txt` and `common/units/equipment/sm_power_armour.txt`
@@ -323,8 +323,9 @@ original minimum plan:
   folder's window (with a `sm_geneseed_sequencing_tree` gridbox) and its
   `sm_astartes_folder_tab` button have to go inside the vanilla `countrytechtreeview`
   window, so the mod overrides `interface/countrytechtreeview.gui`.
-  `tools/patch_techtree_gui.py` builds that override from the player's own game file.
-  It's the mod's only override.
+  Each folder also needs its own `techtree_<folder>_item` tech box template.
+  `tools/patch_techtree_gui.py` builds that override from the vanilla file. It's the mod's
+  only override.
 
 ---
 

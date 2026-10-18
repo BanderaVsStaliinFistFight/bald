@@ -5,12 +5,12 @@ found a Chapter of Space Marines: a few elite, very expensive battalions. Orbita
 operations (Drop Pod Assault, Lance Strike, Orbital Bombardment) come late in the tree.
 
 The mod is **technologies and decisions only**. It has no focus trees, events, new
-countries or map changes, and doesn't override any vanilla file, so it runs alongside
-vanilla and focus-tree mods. The full design is in [IDEAS.md](IDEAS.md).
+countries or map changes. Its one vanilla override is the research screen's layout, so it
+runs alongside vanilla and focus-tree mods (see [The tech tab](#the-tech-tab)). The full
+design is in [IDEAS.md](IDEAS.md).
 
-**Status: v0.1.1.** The Astartes technologies are missing from the research screen in
-this build. v0.1.0's Astartes tech tab stopped the research screen from opening, so the
-tab is removed until it's rebuilt. See [Known issue](#known-issue-no-astartes-tech-tab).
+**Status: v0.1.2.** The Astartes tech tab is back, now built on the game's own research
+screen layout. Not yet tested in-game.
 
 ## Install
 
@@ -28,8 +28,8 @@ tab is removed until it's rebuilt. See [Known issue](#known-issue-no-astartes-te
 ## How to play
 
 1. **Decisions → The Astartes Project → Establish the Astartes Project** (100 PP).
-   This unlocks the Astartes techs and gives 5 gene-seed. In v0.1.1 the techs aren't in
-   the research screen, so use the console for now (see [Known issue](#known-issue-no-astartes-tech-tab)).
+   This reveals the **Adeptus Astartes** tab (labelled 40K) in the research screen and
+   gives 5 gene-seed.
 2. Research **Gene-Seed Sequencing**, then requisition up to 3 **Gene-Forges** (each uses
    3 civilian factories for 120 days) and **Harvest Gene-Seed** every 60 days.
 3. Research **Mk II power armour** early, so you can build up a stockpile.
@@ -43,11 +43,11 @@ tab is removed until it's rebuilt. See [Known issue](#known-issue-no-astartes-te
 
 The category descriptions show your current gene-seed stockpile.
 
-## What's in v0.1.1
+## What's in v0.1.2
 
 | | Content |
 |---|---|
-| Technologies (21 researchable + 1 granted by decision; not in the research screen yet) | Gene-Seed spine (5) and side organs (5); power armour Mk II–IV; Boltgun and Heavy Bolter; Drop Pods, Strike Cruiser, Battle Barge; Codex Adherent doctrine (3) |
+| Technologies (21 in the tab + 1 granted by decision) | Gene-Seed spine (5) and side organs (5); power armour Mk II–IV; Boltgun and Heavy Bolter; Drop Pods, Strike Cruiser, Battle Barge; Codex Adherent doctrine (3) |
 | Sub-units | Tactical Squad (line, special forces), Neophyte Scouts and Apothecarion (support companies) |
 | Equipment | Power armour archetype with Mk II, Mk III and Mk IV |
 | Decisions (13) | Establish Project, Requisition a Gene-Forge, Harvest Gene-Seed, Recover Progenoids, 3 lineage choices, Found the First Chapter, Red Thirst mission and Sate the Red Thirst, Drop Pod Assault, Lance Strike, Orbital Bombardment |
@@ -59,51 +59,43 @@ All numbers are first-pass placeholders, and all icons are generated placeholder
 
 | Path | Contents |
 |---|---|
+| `common/technology_tags/` | tech categories and the `sm_astartes_folder` tech folder |
 | `common/technologies/` | all technologies |
 | `common/units/`, `common/units/equipment/` | sub-units and power armour |
 | `common/ideas/`, `common/dynamic_modifiers/` | spirits and modifiers applied by decisions |
 | `common/decisions/` | decision categories and decisions |
+| `interface/countrytechtreeview.gui` | research screen with the Astartes tab (generated, see below) |
 | `interface/sm_astartes.gfx`, `gfx/interface/sm_astartes/` | sprites and placeholder textures |
 | `localisation/english/` | English text |
 | `tools/` | checker, icon generator and tech-screen patcher (not loaded by the game) |
 
 Every key starts with `sm_`.
 
-## Known issue: no Astartes tech tab
+## The tech tab
 
-A new tab needs two things inside the vanilla `countrytechtreeview` window of
-`interface/countrytechtreeview.gui`:
-- a window named after the folder, holding a gridbox named after the tree's first tech
-  (`sm_geneseed_sequencing_tree`)
-- a button named `sm_astartes_folder_tab` in `folder_tabs`
+The research screen only finds a tab if it's defined inside the vanilla
+`countrytechtreeview` window of `interface/countrytechtreeview.gui`. So the mod ships its
+own copy of that file, generated from the vanilla file of the current game (October 2026)
+by `tools/patch_techtree_gui.py`. The copy adds:
+- the `sm_astartes_folder` window, with the frame of the vanilla industry tab and a
+  `sm_geneseed_sequencing_tree` gridbox for the Astartes tree
+- the `sm_astartes_folder_tab` button after the industry tab
+- `techtree_sm_astartes_folder_item` and `techtree_sm_astartes_folder_small_item` tech
+  boxes, copied from the industry and armour tabs
 
-v0.1.0 put the window in a separate file, so the game never found it and the research
-screen wouldn't open. v0.1.1 removes the tab, so the Astartes techs don't appear in the
-research screen at all.
+Everything else in the file is unchanged vanilla. v0.1.0 put the tab's window in a
+separate file instead; the game never found it, and the research screen wouldn't open.
 
-The fix is ready but needs the current vanilla `interface/countrytechtreeview.gui` from
-your game install. It changes between game versions and isn't public, so the mod has to
-build its override from your copy:
+**After a game update** that changes the research screen, regenerate the file from the
+updated game, or the research screen may break:
 
 ```
 python3 tools/patch_techtree_gui.py "<HOI4 install folder>"
 ```
 
-This copies a vanilla folder's frame into a new `sm_astartes_folder` window and adds the
-tab after the last vanilla tab. Everything else in the file stays vanilla. Then the
-folder goes back into `common/technology_tags/` and the techs get their tab positions
-back (layout: commit `1cbfa9a`).
-
-Until then, you can test the rest of the mod with the console (`~`). The `research`
-command should grant a tech by name, for example:
-
-```
-research sm_geneseed_sequencing
-research sm_ossmodula
-research sm_black_carapace
-research sm_mk2_crusade_armour
-research sm_drop_pods
-```
+**Compatibility:** other mods that override `interface/countrytechtreeview.gui` conflict
+with this one. Whichever loads last wins, and the other mod's tabs or the Astartes tab go
+missing.
 
 ## Testing status
 
@@ -116,9 +108,11 @@ every script file and verifies:
 
 **Still needs an in-game check:**
 
-1. **Icon sizes.** Placeholder textures use guessed sizes (tech 64×64, unit 48×36,
+1. **The tech tab.** The tab, its window and tech boxes are built from your game's file,
+   but the layout and the 40K tab button haven't been seen in-game.
+2. **Icon sizes.** Placeholder textures use guessed sizes (tech 64×64, unit 48×36,
    equipment 96×48, spirit 64×64, decision 40×40).
-2. **Balance.** Every cost and stat is a placeholder.
+3. **Balance.** Every cost and stat is a placeholder.
 
 After a test run, check `Documents/Paradox Interactive/Hearts of Iron IV/logs/error.log`
 for lines that mention `sm_`.
@@ -133,6 +127,6 @@ python3 tools/patch_techtree_gui.py GAME_DIR     # build interface/countrytechtr
 ```
 
 `PATH` is a checkout of `https://github.com/cwtools/cwtools-hoi4-config`. `GAME_DIR` is
-your HOI4 install folder; re-run the patch after a game update changes the tech screen. Both scripts
-need Python 3, and the icon generator also needs Pillow. To use real art, overwrite a
+your HOI4 install folder. The scripts need Python 3, and the icon generator also needs
+Pillow. To use real art, overwrite a
 DDS file in `gfx/interface/sm_astartes/` and keep its filename.

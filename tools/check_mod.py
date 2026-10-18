@@ -8,7 +8,8 @@ Catches the mistakes that otherwise only show up in-game or in error.log:
   * missing localisation keys and missing sprites
   * a tech folder without its window and tab inside the vanilla countrytechtreeview
     window of interface/countrytechtreeview.gui (that stopped the research screen
-    opening in v0.1.0), or a root tech without its <root tech>_tree gridbox there
+    opening in v0.1.0), without its techtree_<folder>_item tech box template, or a root
+    tech without its <root tech>_tree gridbox in the folder's window
   * with --cwtools PATH: effect, trigger and modifier names checked against the
     game's script documentation shipped in the CWTools HOI4 rules
     (https://github.com/cwtools/cwtools-hoi4-config)
@@ -262,6 +263,10 @@ def main():
         if not (tab_rows and named(tab_rows[0], "buttontype", f"{folder}_tab")):
             problems.append(f"tech folder {folder}: no '{folder}_tab' button in folder_tabs in "
                             "interface/countrytechtreeview.gui")
+        if not named(items_in("interface/countrytechtreeview.gui"), "containerwindowtype",
+                     f"techtree_{folder}_item"):
+            problems.append(f"tech folder {folder}: no 'techtree_{folder}_item' tech box template "
+                            "in interface/countrytechtreeview.gui")
 
     # Technologies.
     targets = {t for v in techs.values() for t in values_of(v, "leads_to_tech")}

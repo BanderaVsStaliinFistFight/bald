@@ -1,0 +1,17 @@
+### Adeptus Astartes: technology categories and the Astartes tech folder.
+### Additive: this file sits next to vanilla's 00_technology.txt instead of replacing it.
+### The folder's window and tab are in interface/countrytechtreeview.gui; without them the
+### research screen won't open.
+
+technology_categories = {
+	sm_geneseed_tech
+	sm_wargear_tech
+	sm_void_tech
+	sm_codex_tech
+}
+
+technology_folders = {
+	sm_astartes_folder = {
+		ledger = army
+	}
+}
