@@ -33,7 +33,7 @@ The mod is made of **technologies and decisions only**:
 
 ```
  Establish the Astartes Project (decision)
-            │  reveals the Astartes tech tab, +5 gene-seed
+            │  unlocks Gene-Forges, +5 gene-seed
             ▼
  Research the Gene-Seed branch ─────────────► Black Carapace (1939)
             │                                        │
@@ -62,8 +62,10 @@ The mod is made of **technologies and decisions only**:
 
 ## Technologies
 
-All technologies sit in a new **Astartes** tab. The tab stays hidden until the
-project is established (`allow_branch = { has_country_flag = sm_project_founded }`).
+All technologies sit in a new **Astartes** tab, visible from game start. The AI only
+researches them once it has established the project. (Hiding the tree with
+`allow_branch` until then left the tab empty in v0.1.2: vanilla only uses `allow_branch`
+for DLC checks.)
 The tab has three branches.
 
 ### Branch 1 — Gene-Seed (20 techs)
@@ -190,7 +192,7 @@ There are five decision categories. The category header always shows the current
 
 | Decision | Cost | Requires | Effect |
 |---|---|---|---|
-| **Establish the Astartes Project** | 100 PP | nothing: any nation can start it | sets `sm_project_founded` (reveals tech tab); research bonus for Gene-Seed Sequencing; +5 gene-seed |
+| **Establish the Astartes Project** | 100 PP | nothing: any nation can start it | sets `sm_project_founded` (unlocks Gene-Forges and Chapter Founding); research bonus for Gene-Seed Sequencing; +5 gene-seed |
 | **Requisition a Gene-Forge** *(state-targeted, max 3)* | 50 PP + 3 civ. factories for 120 days | core state, infrastructure ≥ 5; Gene-Seed Sequencing | state becomes a Gene-Forge (flag + dynamic modifier) |
 | **Harvest Gene-Seed** *(repeatable, 60-day cooldown)* | 25 PP | ≥ 1 Gene-Forge | +2 gene-seed, +2 per Gene-Forge |
 | **Recover Progenoids** *(repeatable, 90-day cooldown)* | — | at war; Chapter founded | +3 gene-seed (×2 with Progenoid Glands, +1 if a division template has an Apothecarion) |

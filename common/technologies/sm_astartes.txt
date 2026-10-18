@@ -1,7 +1,9 @@
 ### Adeptus Astartes technologies.
 ### Every tech sits in the Astartes folder in one tree rooted at Gene-Seed Sequencing.
-### The whole tree stays hidden until the "Establish the Astartes Project" decision
-### sets sm_project_founded (allow_branch on the root).
+### The tree is visible from game start. The AI only researches it once the "Establish the
+### Astartes Project" decision has set sm_project_founded. (v0.1.2 hid the tree with
+### allow_branch on that flag; vanilla only uses allow_branch for DLC checks, and the tab
+### stayed empty.)
 ###
 ### The folder's window lives in the mod's interface/countrytechtreeview.gui (built by
 ### tools/patch_techtree_gui.py). Positions are 70px slots of its sm_geneseed_sequencing_tree
@@ -15,8 +17,6 @@ technologies = {
 	########################################
 
 	sm_geneseed_sequencing = {
-		allow_branch = { has_country_flag = sm_project_founded }
-
 		research_cost = 1.5
 		start_year = 1936
 
@@ -31,7 +31,13 @@ technologies = {
 
 		categories = { sm_geneseed_tech }
 
-		ai_will_do = { factor = 2 }
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	sm_secondary_heart = {
@@ -51,7 +57,13 @@ technologies = {
 
 		categories = { sm_geneseed_tech }
 
-		ai_will_do = { factor = 2 }
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	sm_ossmodula = {
@@ -70,7 +82,13 @@ technologies = {
 
 		categories = { sm_geneseed_tech }
 
-		ai_will_do = { factor = 2 }
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	sm_larramans_organ = {
@@ -90,7 +108,13 @@ technologies = {
 
 		categories = { sm_geneseed_tech }
 
-		ai_will_do = { factor = 2 }
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	sm_black_carapace = {
@@ -110,7 +134,13 @@ technologies = {
 
 		categories = { sm_geneseed_tech }
 
-		ai_will_do = { factor = 2 }
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	########################################
@@ -130,7 +160,13 @@ technologies = {
 
 		categories = { sm_geneseed_tech }
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	sm_haemastamen = {
@@ -146,7 +182,13 @@ technologies = {
 
 		categories = { sm_geneseed_tech }
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	sm_occulobe = {
@@ -162,7 +204,13 @@ technologies = {
 
 		categories = { sm_geneseed_tech }
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	sm_betchers_gland = {
@@ -181,7 +229,13 @@ technologies = {
 
 		categories = { sm_geneseed_tech }
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	# No direct modifier: doubles the yield of the Recover Progenoids decision.
@@ -196,7 +250,13 @@ technologies = {
 
 		categories = { sm_geneseed_tech }
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	########################################
@@ -218,7 +278,13 @@ technologies = {
 
 		categories = { sm_wargear_tech }
 
-		ai_will_do = { factor = 2 }
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	sm_mk3_iron_armour = {
@@ -237,7 +303,13 @@ technologies = {
 
 		categories = { sm_wargear_tech }
 
-		ai_will_do = { factor = 2 }
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	sm_mk4_maximus_armour = {
@@ -253,7 +325,13 @@ technologies = {
 
 		categories = { sm_wargear_tech }
 
-		ai_will_do = { factor = 2 }
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	########################################
@@ -275,7 +353,13 @@ technologies = {
 
 		categories = { sm_wargear_tech }
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	sm_heavy_bolter = {
@@ -294,7 +378,13 @@ technologies = {
 
 		categories = { sm_wargear_tech }
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	########################################
@@ -314,7 +404,13 @@ technologies = {
 
 		categories = { sm_void_tech }
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	sm_strike_cruiser = {
@@ -330,7 +426,13 @@ technologies = {
 
 		categories = { sm_void_tech }
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	sm_battle_barge = {
@@ -344,7 +446,13 @@ technologies = {
 
 		categories = { sm_void_tech }
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	########################################
@@ -366,7 +474,13 @@ technologies = {
 
 		categories = { sm_codex_tech }
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	sm_battle_company_doctrine = {
@@ -384,7 +498,13 @@ technologies = {
 
 		categories = { sm_codex_tech }
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	sm_chapter_masters_council = {
@@ -400,7 +520,13 @@ technologies = {
 
 		categories = { sm_codex_tech }
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = sm_project_founded }
+			}
+		}
 	}
 
 	########################################

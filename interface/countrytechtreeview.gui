@@ -3351,6 +3351,7 @@ guiTypes = {
 			gridboxtype = {
 				name = "sm_geneseed_sequencing_tree"
 				position = { x = 60 y = 40 }
+				size = { width = 1500 height = 1100 }
 				slotsize = { width = 70 height = 70 }
 				format = "UP"
 			}

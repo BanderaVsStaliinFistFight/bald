@@ -154,7 +154,7 @@
  sm_cost_100cp_blocked:0 "£command_power §R100§!"
 
  ### Custom tooltips
- sm_reveals_astartes_tab_tt:0 "Reveals the §YAdeptus Astartes§! technology tab."
+ sm_unlocks_project_tt:0 "Unlocks the §YGene-Forge§! decisions and the §YChapter Founding§! decisions."
  sm_gain_5_geneseed_tt:0 "Gene-seed: §G+5§!"
  sm_spend_5_geneseed_tt:0 "Gene-seed: §R-5§!"
  sm_spend_20_geneseed_tt:0 "Gene-seed: §R-20§!"

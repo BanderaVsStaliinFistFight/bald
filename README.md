@@ -9,8 +9,9 @@ countries or map changes. Its one vanilla override is the research screen's layo
 runs alongside vanilla and focus-tree mods (see [The tech tab](#the-tech-tab)). The full
 design is in [IDEAS.md](IDEAS.md).
 
-**Status: v0.1.2.** The Astartes tech tab is back, now built on the game's own research
-screen layout. Not yet tested in-game.
+**Status: v0.1.3.** v0.1.2's Astartes tab showed up in-game but was empty. v0.1.3 gives
+the tab's tech grid an explicit size and shows the techs from game start. Not yet
+confirmed in-game.
 
 ## Install
 
@@ -28,8 +29,9 @@ screen layout. Not yet tested in-game.
 ## How to play
 
 1. **Decisions → The Astartes Project → Establish the Astartes Project** (100 PP).
-   This reveals the **Adeptus Astartes** tab (labelled 40K) in the research screen and
-   gives 5 gene-seed.
+   This unlocks the Gene-Forge and Chapter Founding decisions, speeds up Gene-Seed
+   Sequencing and gives 5 gene-seed. The Astartes techs are in the **40K** tab of the
+   research screen from the start.
 2. Research **Gene-Seed Sequencing**, then requisition up to 3 **Gene-Forges** (each uses
    3 civilian factories for 120 days) and **Harvest Gene-Seed** every 60 days.
 3. Research **Mk II power armour** early, so you can build up a stockpile.
@@ -43,7 +45,7 @@ screen layout. Not yet tested in-game.
 
 The category descriptions show your current gene-seed stockpile.
 
-## What's in v0.1.2
+## What's in v0.1.3
 
 | | Content |
 |---|---|
@@ -78,7 +80,8 @@ The research screen only finds a tab if it's defined inside the vanilla
 own copy of that file, generated from the vanilla file of the current game (October 2026)
 by `tools/patch_techtree_gui.py`. The copy adds:
 - the `sm_astartes_folder` window, with the frame of the vanilla industry tab and a
-  `sm_geneseed_sequencing_tree` gridbox for the Astartes tree
+  `sm_geneseed_sequencing_tree` gridbox for the Astartes tree (sized like vanilla's
+  top-to-bottom grids)
 - the `sm_astartes_folder_tab` button after the industry tab
 - `techtree_sm_astartes_folder_item` and `techtree_sm_astartes_folder_small_item` tech
   boxes, copied from the industry and armour tabs

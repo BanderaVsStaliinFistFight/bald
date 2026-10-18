@@ -47,7 +47,9 @@ ITEM_TEMPLATES = (
 
 # Content of the Astartes folder: a scroll area big enough for the tree, then the tree's
 # grid. "UP" lays technology y positions out top to bottom (vanilla uses it for folders
-# with years down the side). Slots are 70x70, like vanilla.
+# with years down the side). Slots are 70x70, like vanilla. Every vanilla "UP" grid has an
+# explicit size; this one covers the whole tree (columns up to x = 18, rows up to y = 14,
+# plus one 204x72 tech box).
 FOLDER_CONTENT = f"""containerWindowType = {{
 	name = "sm_astartes_scroll_area"
 	position = {{ x = 0 y = 0 }}
@@ -61,6 +63,7 @@ FOLDER_CONTENT = f"""containerWindowType = {{
 gridboxtype = {{
 	name = "{ROOT_TECH}_tree"
 	position = {{ x = 60 y = 40 }}
+	size = {{ width = 1500 height = 1100 }}
 	slotsize = {{ width = 70 height = 70 }}
 	format = "UP"
 }}"""
