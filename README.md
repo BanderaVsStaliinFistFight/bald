@@ -55,7 +55,8 @@ The category descriptions show your current gene-seed stockpile.
 | Decisions (13) | Establish Project, Requisition a Gene-Forge, Harvest Gene-Seed, Recover Progenoids, 3 lineage choices, Found the First Chapter, Red Thirst mission and Sate the Red Thirst, Drop Pod Assault, Lance Strike, Orbital Bombardment |
 | Spirits | 3 lineages, Adeptus Astartes Chapter, The Black Rage |
 
-All numbers are first-pass placeholders, and all icons are generated placeholders.
+All numbers are first-pass placeholders. The icons are generated from a helmet silhouette
+(see [Icons](#icons)).
 
 ## Layout
 
@@ -67,9 +68,10 @@ All numbers are first-pass placeholders, and all icons are generated placeholder
 | `common/ideas/`, `common/dynamic_modifiers/` | spirits and modifiers applied by decisions |
 | `common/decisions/` | decision categories and decisions |
 | `interface/countrytechtreeview.gui` | research screen with the Astartes tab (generated, see below) |
-| `interface/sm_astartes.gfx`, `gfx/interface/sm_astartes/` | sprites and placeholder textures |
+| `interface/sm_astartes.gfx`, `gfx/interface/sm_astartes/` | sprites and their textures (generated) |
+| `thumbnail.png` | launcher and Steam Workshop picture (generated) |
 | `localisation/english/` | English text |
-| `tools/` | checker, icon generator and tech-screen patcher (not loaded by the game) |
+| `tools/` | checker, icon generator, tech-screen patcher and source art (not loaded by the game) |
 
 Every key starts with `sm_`.
 
@@ -113,8 +115,8 @@ every script file and verifies:
 
 1. **The tech tab.** The tab, its window and tech boxes are built from your game's file,
    but the layout and the 40K tab button haven't been seen in-game.
-2. **Icon sizes.** Placeholder textures use guessed sizes (tech 64×64, unit 48×36,
-   equipment 96×48, spirit 64×64, decision 40×40).
+2. **Icon sizes.** The textures use guessed sizes (tech 64×64, unit 48×36, equipment
+   96×48, spirit 64×64, decision 40×40, tab 2×86×30).
 3. **Balance.** Every cost and stat is a placeholder.
 
 After a test run, check `Documents/Paradox Interactive/Hearts of Iron IV/logs/error.log`
@@ -125,11 +127,25 @@ for lines that mention `sm_`.
 ```
 python3 tools/check_mod.py                       # structure, references, localisation, sprites
 python3 tools/check_mod.py --cwtools PATH        # also check effect/trigger/modifier names
-python3 tools/make_placeholder_icons.py          # regenerate placeholder icons and interface/sm_astartes.gfx
+python3 tools/make_icons.py                      # regenerate icons, interface/sm_astartes.gfx and thumbnail.png
 python3 tools/patch_techtree_gui.py GAME_DIR     # build interface/countrytechtreeview.gui with the Astartes tab
 ```
 
 `PATH` is a checkout of `https://github.com/cwtools/cwtools-hoi4-config`. `GAME_DIR` is
 your HOI4 install folder. The scripts need Python 3, and the icon generator also needs
-Pillow. To use real art, overwrite a
-DDS file in `gfx/interface/sm_astartes/` and keep its filename.
+Pillow.
+
+## Icons
+
+`tools/make_icons.py` draws every icon from `tools/art/helmet.png`, a Space Marine helmet
+silhouette. The helmet's lenses and grille are recoloured per use:
+- **Lineage spirits:** Ultramarines blue, Blood Angels red with gold lenses, Imperial Fists
+  yellow; the Chapter spirit is silver and the Black Rage is black with red eyes.
+- **Units, power armour, the 40K tab, the Chapter decisions and `thumbnail.png`** also use
+  the helmet.
+- **Techs** get a symbol per branch instead: a DNA helix for gene-seed, a helmet for
+  power armour, bolt shells for weapons, a planet with an orbit for void assets and a
+  book for the Codex. Each has a short label.
+
+To use hand-made art for one icon, overwrite its DDS in `gfx/interface/sm_astartes/`
+(keep the filename and size) and remove its entry from `SPRITES` in the script.
